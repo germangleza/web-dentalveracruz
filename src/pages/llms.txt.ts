@@ -17,7 +17,8 @@ export const GET: APIRoute = async () => {
 
 ## Información
 - Sitio: ${SITE.url}
-- Contacto: ${SITE.business.email}
+- Ubicación: ${SITE.business.address.street}, ${SITE.business.address.city}, ${SITE.business.address.state}
+- Teléfono / WhatsApp: ${SITE.business.phone}${SITE.business.email ? `\n- Correo: ${SITE.business.email}` : ''}
 
 ## Blog
 ${posts.map((p) => `- [${p.data.title}](${SITE.url}/blog/${p.id}): ${p.data.description}`).join('\n')}

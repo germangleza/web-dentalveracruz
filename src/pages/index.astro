@@ -1,13 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQSchema from '../components/schema/FAQSchema.astro';
-import { SITE } from '../config/site.config';
+import { SITE, whatsappUrl, telUrl } from '../config/site.config';
 
-// FAQs de pacientes: edítalas por proyecto. Rankean en Google y alimentan a los LLMs (GEO).
+const b = SITE.business;
+const days: Record<string, string> = { Mo: 'Lun', Tu: 'Mar', We: 'Mié', Th: 'Jue', Fr: 'Vie', Sa: 'Sáb', Su: 'Dom' };
+const fmtHours = (h: string) => h.replace(/Mo|Tu|We|Th|Fr|Sa|Su/g, (d) => days[d]);
+const fullAddress = `${b.address.street}, ${b.address.city}, ${b.address.state} ${b.address.zip}`;
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.name}, ${fullAddress}`)}`;
+
+// FAQs de pacientes: rankean en Google y alimentan a los LLMs (GEO). Ampliar cuando llegue el copy.
 const faqs = [
-  { question: '¿Aceptan pacientes nuevos?', answer: SITE.business.acceptingNewPatients ? 'Sí, aceptamos pacientes nuevos. Agenda tu cita por teléfono o correo.' : 'Por el momento no aceptamos pacientes nuevos.' },
-  { question: '¿Dónde están ubicados?', answer: `Estamos en ${SITE.business.address.street}, ${SITE.business.address.city}.` },
-  { question: '¿Cuáles son sus horarios?', answer: 'Lunes a viernes de 9:00 a 19:00 y sábados de 9:00 a 14:00.' },
+  { question: '¿Aceptan pacientes nuevos?', answer: b.acceptingNewPatients ? 'Sí, aceptamos pacientes nuevos. Agenda tu cita por WhatsApp o teléfono.' : 'Por el momento no aceptamos pacientes nuevos.' },
+  { question: '¿Dónde están ubicados?', answer: `Estamos en ${fullAddress}.` },
+  { question: '¿Cómo agendo una cita?', answer: `Escríbenos por WhatsApp o llámanos al ${b.phone}.` },
+  ...(b.openingHours.length
+    ? [{ question: '¿Cuáles son sus horarios?', answer: `${b.openingHours.map(fmtHours).join('; ')}.` }]
+    : []),
 ];
 ---
 <BaseLayout>
@@ -16,18 +25,38 @@ const faqs = [
   <section class="hero">
     <h1>{SITE.name}</h1>
     <p>{SITE.description}</p>
-    <p><a class="cta" href={`tel:${SITE.business.phone.replace(/\s/g, '')}`}>Agendar cita: {SITE.business.phone}</a></p>
+    <p class="cta-row">
+      <a class="cta" href={whatsappUrl()} target="_blank" rel="noopener">Agenda por WhatsApp</a>
+      <a class="cta cta-secondary" href={telUrl()}>Llamar: {b.phone}</a>
+    </p>
   </section>
 
-  <section aria-labelledby="ubicacion-title">
-    <h2 id="ubicacion-title">Ubicación y horarios</h2>
+  {SITE.services.length > 0 && (
+    <section id="servicios" aria-labelledby="servicios-title">
+      <h2 id="servicios-title">Servicios</h2>
+      <div class="services-grid">
+        {SITE.services.map((s) => (
+          <article class="service-card">
+            <h3>{s.name}</h3>
+            <p>{s.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section id="ubicacion" aria-labelledby="ubicacion-title">
+    <h2 id="ubicacion-title">Ubicación{b.openingHours.length > 0 && ' y horarios'}</h2>
     <address>
-      {SITE.business.address.street}<br />
-      {SITE.business.address.city}, {SITE.business.address.state} {SITE.business.address.zip}
+      {b.address.street}<br />
+      {b.address.city}, {b.address.state} {b.address.zip}
     </address>
-    <ul>
-      {SITE.business.openingHours.map((h) => <li>{h.replace('Mo-Fr', 'Lun-Vie').replace('Sa', 'Sáb')}</li>)}
-    </ul>
+    <p><a href={mapsUrl} target="_blank" rel="noopener">Ver en Google Maps</a></p>
+    {b.openingHours.length > 0 && (
+      <ul>
+        {b.openingHours.map((h) => <li>{fmtHours(h)}</li>)}
+      </ul>
+    )}
   </section>
 
   <section id="faq" aria-labelledby="faq-title">
@@ -43,14 +72,21 @@ const faqs = [
   <section id="contacto" aria-labelledby="contacto-title">
     <h2 id="contacto-title">Contacto</h2>
     <p>
-      <a href={`mailto:${SITE.business.email}`}>{SITE.business.email}</a> ·
-      <a href={`tel:${SITE.business.phone.replace(/\s/g, '')}`}>{SITE.business.phone}</a>
+      <a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp {b.phone}</a> ·
+      <a href={telUrl()}>Llamar</a>
+      {b.email && <> · <a href={`mailto:${b.email}`}>{b.email}</a></>}
     </p>
   </section>
 </BaseLayout>
 <style>
+  .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .cta {
     display: inline-block; background: #0e7490; color: #fff;
     padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 600;
   }
+  .cta-secondary { background: transparent; color: #0e7490; border: 2px solid #0e7490; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+  .service-card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.25rem; }
+  .service-card h3 { margin-top: 0; }
+  address { font-style: normal; }
 </style>

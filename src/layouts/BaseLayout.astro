@@ -3,7 +3,8 @@
 import SEO from '../components/SEO.astro';
 import OrganizationSchema from '../components/schema/OrganizationSchema.astro';
 import WebSiteSchema from '../components/schema/WebSiteSchema.astro';
-import { SITE } from '../config/site.config';
+import { getCollection } from 'astro:content';
+import { SITE, whatsappUrl, telUrl } from '../config/site.config';
 import '../styles/global.css';
 
 interface Props {
@@ -16,7 +17,9 @@ interface Props {
   modifiedTime?: string;
   author?: string;
 }
-const props = Astro.props;
+const props = { ...Astro.props, noindex: SITE.prelaunch || Astro.props.noindex };
+const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
+const b = SITE.business;
 ---
 <!doctype html>
 <html lang={SITE.lang}>
@@ -39,8 +42,9 @@ const props = Astro.props;
       <nav aria-label="Principal">
         <a href="/" class="brand">{SITE.name}</a>
         <ul>
-          <li><a href="/equipo">Equipo</a></li>
-          <li><a href="/blog">Blog</a></li>
+          {SITE.medicalTeam.length > 0 && <li><a href="/equipo">Equipo</a></li>}
+          {hasPosts && <li><a href="/blog">Blog</a></li>}
+          <li><a href="/#ubicacion">Ubicación</a></li>
           <li><a href="/#contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -51,7 +55,21 @@ const props = Astro.props;
     </main>
 
     <footer class="site-footer">
-      <p>© {new Date().getFullYear()} {SITE.business.legalName || SITE.name}. Todos los derechos reservados.</p>
+      <div class="footer-inner">
+        <address>
+          <strong>{SITE.name}</strong><br />
+          {b.address.street}<br />
+          {b.address.city}, {b.address.state} {b.address.zip}<br />
+          <a href={telUrl()}>{b.phone}</a>
+        </address>
+        {SITE.regulatory.sanitaryResponsible && <p>Responsable sanitario: {SITE.regulatory.sanitaryResponsible}</p>}
+        {SITE.regulatory.advertisingPermit && <p>Permiso de publicidad COFEPRIS: {SITE.regulatory.advertisingPermit}</p>}
+        <p>© {new Date().getFullYear()} {b.legalName || SITE.name}. Todos los derechos reservados.</p>
+      </div>
     </footer>
+
+    <a class="wa-float" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.2-.5-.3Z"/></svg>
+    </a>
   </body>
 </html>

@@ -3,6 +3,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config/site.config';
 
+// Sin médicos publicados (decisión del cliente) la página no tiene contenido: redirige al inicio.
+if (SITE.medicalTeam.length === 0) return Astro.redirect('/');
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',

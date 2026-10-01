@@ -2,14 +2,14 @@
 title: "Post de ejemplo médico: cómo publicar en este blog"
 description: "Ejemplo de artículo de salud con revisión médica, fuentes y frontmatter completo. Duplica este archivo para crear posts nuevos."
 pubDate: 2026-01-15
-authorId: "dra-ejemplo"
-reviewedBy: "dra-ejemplo"
+reviewedBy: "pendiente"
 reviewDate: 2026-01-15
 tags: ["ejemplo"]
 sources:
   - title: "Organización Mundial de la Salud"
     url: "https://www.who.int/es"
-draft: false
+# Borrador de referencia: no se publica. Aún no hay revisor en medicalTeam.
+draft: true
 ---
 
 ## Cómo funciona este blog
