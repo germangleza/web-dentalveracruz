@@ -72,7 +72,7 @@ export const SITE = {
     /** Tomadas del embed de Google Maps (centro del mapa). Verificar con el pin exacto. */
     geo: { lat: 32.53359097365693, lng: -117.01171038775088 },
     /** Formato schema.org (igual que Google Business). */
-    openingHours: ['Mo-Fr 09:00-17:00', 'Sa 08:00-16:00', 'Su 09:00-13:00'] as string[],
+    openingHours: ['Mo-Fr 09:00-17:00', 'Sa 08:00-16:00'] as string[],
     /** ¿Acepta pacientes nuevos? (aparece en resultados de Google) */
     acceptingNewPatients: true,
     priceRange: '$$',                        // $, $$, $$$
