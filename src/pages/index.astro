@@ -119,8 +119,9 @@ const icons: Record<string, string> = {
         {specialties.map((s) => (
           <article class="spec">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9FD3DD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.id]} />
-            <h3>{'url' in s ? <a class="spec-link" href={s.url}>{s.name}</a> : s.name}</h3>
+            <h3>{s.name}</h3>
             <p>{s.description}</p>
+            {'url' in s && <a class="btn btn-light spec-btn" href={s.url} data-track={`ver-${s.id}`}>Conocer más →</a>}
           </article>
         ))}
       </div>
@@ -225,9 +226,9 @@ const icons: Record<string, string> = {
   .specialties-head { display: flex; flex-direction: column; gap: 16px; max-width: 40rem; }
   .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 20px; }
   .spec { background: var(--dark-card); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
-  .spec-link { color: inherit; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size var(--dur) var(--ease); }
-  .spec-link:hover { color: #fff; background-size: 100% 2px; }
-  .spec-link::after { content: ' →'; color: var(--on-dark-accent); }
+  .spec-btn { margin-top: auto; align-self: flex-start; }
+  .btn-light { border: 2px solid var(--on-dark-accent); color: #fff; }
+  .btn-light:hover { background: var(--on-dark-accent); color: var(--ink); }
   .spec svg { transition: transform var(--dur) var(--ease); }
   .spec:hover svg { transform: scale(1.12) rotate(-6deg); }
   .spec h3 { margin: 0; font-size: 24px; font-weight: 600; }
