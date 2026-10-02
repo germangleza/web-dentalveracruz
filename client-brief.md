@@ -5,11 +5,11 @@
 ## Negocio
 
 - **Nombre comercial:** Dental Veracruz
-- **Qué hace / servicios principales:** Clínica dental. Lista de servicios y copy: pendientes (los envía el cliente).
-- **Ubicación (ciudad, zona de cobertura):** Blvd. Cuauhtémoc 11004, Col. Libertad, Tijuana, B.C. (CP 22400 por confirmar; coordenadas pendientes)
+- **Qué hace / servicios principales:** Odontología general (limpieza, revisión y diagnóstico, preventivos, restaurativos) y especialidades: ortodoncia, implantes dentales y endodoncia.
+- **Ubicación (ciudad, zona de cobertura):** Blvd. Cuauhtémoc 11004, Col. Libertad, Tijuana, B.C. (CP 22400 por confirmar; coordenadas tomadas del embed de Maps)
 - **Diferenciadores (por qué elegirlos a ellos):**
 - **Teléfono / WhatsApp / contacto principal:** WhatsApp +52 664 780 8302
-- **Google Business Profile (URL):** pendiente — NAP del sitio debe coincidir exactamente
+- **Google Business Profile (URL):** https://maps.google.com/?cid=12775939453074444997 — ficha "Dental Veracruz en Tijuana"; NAP del sitio debe coincidir exactamente
 
 ## Audiencia
 

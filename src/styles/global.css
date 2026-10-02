@@ -1,43 +1,75 @@
-/* Reset y base mínima. Sustituye o extiende con tu sistema de diseño por proyecto. */
+/* Sistema de diseño Dental Veracruz. Tokens en :root; componentes de página en cada .astro. */
+:root {
+  --accent: #1B6F80;
+  --ink: #12303A;
+  --ink-deep: #0B1F26;
+  --text-2: #3E555C;
+  --bg-soft: #EEF4F5;
+  --placeholder: #D3E3E6;
+  --border: #D5E1E3;
+  --dark-card: #1B4350;
+  --on-dark: #D6E6E9;
+  --on-dark-accent: #9FD3DD;
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+}
 *, *::before, *::after { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-  color: #1a1a1a;
-}
-img { max-width: 100%; height: auto; }
-
-.site-header nav {
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 72rem; margin: 0 auto; padding: 1rem 1.5rem;
-}
-.site-header ul { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; list-style: none; margin: 0; padding: 0; }
-.site-header a { text-decoration: none; color: inherit; }
-.brand { font-weight: 700; }
-
-main { max-width: 72rem; margin: 0 auto; padding: 1.5rem; min-height: 60vh; }
-
-.post { max-width: 44rem; margin: 0 auto; }
-.post .meta { color: #666; font-size: 0.9rem; }
-.tags { display: flex; gap: 0.5rem; list-style: none; padding: 0; flex-wrap: wrap; }
-.tags a { font-size: 0.85rem; color: #444; }
-.prose :is(h2, h3) { margin-top: 2rem; }
-
-.site-footer { border-top: 1px solid #eee; margin-top: 3rem; }
-.site-footer .footer-inner { max-width: 72rem; margin: 0 auto; padding: 1.5rem; color: #666; font-size: 0.9rem; }
-.site-footer address { font-style: normal; margin-bottom: 1rem; }
-.site-footer p { margin: 0.25rem 0; }
-.site-footer a { color: inherit; }
-
-.wa-float {
-  position: fixed; right: 1rem; bottom: 1rem; z-index: 50;
-  display: grid; place-items: center; width: 56px; height: 56px;
-  border-radius: 50%; background: #25d366; color: #fff;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
-}
-
-:focus-visible { outline: 2px solid #0f172a; outline-offset: 2px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; font-family: var(--font-body); color: var(--ink); background: #fff; font-size: 17px; line-height: 1.6; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--ink); }
+a:hover { color: var(--ink-deep); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Utilidades */
+.container { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+.section { padding-block: 88px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 48px; }
+.stack { display: flex; flex-direction: column; }
+.eyebrow { margin: 0; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; color: var(--accent); }
+.h2 { margin: 0; font-weight: 700; font-size: clamp(28px, 3.5vw, 40px); line-height: 1.15; letter-spacing: -0.01em; }
+.muted { color: var(--text-2); }
+.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; font-weight: 600; min-height: 48px; padding: 12px 24px; }
+.btn-primary { background: var(--accent); color: #fff; padding: 14px 26px; }
+.btn-primary:hover { color: #fff; filter: brightness(0.92); }
+.btn-outline { border: 2px solid var(--ink); color: var(--ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 480px) { .section { padding-block: 64px; } }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--border); }
+.site-header .container { padding-block: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.site-header .logo img { height: 52px; width: auto; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; font-weight: 500; }
+.nav a { text-decoration: none; }
+.nav .btn { min-height: 44px; padding: 10px 20px; }
+@media (max-width: 720px) {
+  .nav a:not(.btn) { display: none; }
+  .site-header .logo img { height: 44px; }
+}
+
+/* Páginas internas (blog, equipo, 404) */
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 24px 72px; min-height: 60vh; }
+.post { max-width: 44rem; margin: 0 auto; }
+.post .meta { color: var(--text-2); font-size: 0.9rem; }
+.tags { display: flex; gap: 0.5rem; list-style: none; padding: 0; flex-wrap: wrap; }
+.tags a { font-size: 0.85rem; color: var(--text-2); }
+.prose :is(h2, h3) { margin-top: 2rem; }
+
+/* Footer */
+.site-footer { background: var(--ink-deep); color: #C9D8DB; font-size: 15px; }
+.site-footer .container { padding-block: 48px 96px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
+.site-footer .stack { gap: 6px; }
+.site-footer .footer-logo { height: 56px; width: auto; margin-bottom: 8px; }
+.site-footer address { font-style: normal; }
+.site-footer a { color: #fff; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+
+/* WhatsApp flotante */
+.wa-float { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 999px; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(11, 31, 38, 0.25); z-index: 20; }
+.wa-float:hover { color: #fff; filter: brightness(0.95); }

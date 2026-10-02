@@ -24,8 +24,8 @@ export const SITE = {
   name: 'Dental Veracruz',
   // TODO: dominio final pendiente (SIN slash al final)
   url: 'https://ejemplo.com',
-  title: 'Dental Veracruz — Dentista en Tijuana',
-  description: 'Clínica dental en Colonia Libertad, Tijuana, Baja California. Agenda tu cita por WhatsApp.',
+  title: 'Dental Veracruz | Clínica dental en Tijuana',
+  description: 'Clínica dental en Tijuana: odontología general, ortodoncia, implantes dentales y endodoncia. Agenda tu cita por WhatsApp.',
   locale: 'es_MX',
   lang: 'es',
 
@@ -36,10 +36,13 @@ export const SITE = {
    */
   prelaunch: true,
 
-  // === Marca === (pendiente: logo, colores y og-default del cliente)
-  logo: '/logo.png',
+  // === Marca ===
+  logo: '/logo.png',                         // Logo a color (fondo transparente)
+  logoWhite: '/logo-blanco.png',             // Logo en blanco para fondos oscuros
   ogImage: '/og-default.png',                // 1200x630
-  themeColor: '#0e7490',
+  themeColor: '#1B6F80',
+  /** Foto principal del inicio (sesión propia, no stock). Vacío = panel con el logo. */
+  heroImage: '',
 
   // === Negocio médico (para schema Dentist) ===
   business: {
@@ -66,8 +69,8 @@ export const SITE = {
       zip: '22400',                          // TODO: confirmar CP con Google Business
       country: 'MX',
     },
-    /** TODO: coordenadas reales (Google Maps → clic derecho). 0 = no se publica geo. */
-    geo: { lat: 0, lng: 0 },
+    /** Tomadas del embed de Google Maps (centro del mapa). Verificar con el pin exacto. */
+    geo: { lat: 32.53359097365693, lng: -117.01171038775088 },
     /** TODO: horarios reales, formato schema.org: 'Mo-Fr 09:00-19:00', 'Sa 09:00-14:00' */
     openingHours: [] as string[],
     /** ¿Acepta pacientes nuevos? (aparece en resultados de Google) */
@@ -75,9 +78,46 @@ export const SITE = {
     priceRange: '$$',                        // $, $$, $$$
   },
 
-  // === Servicios (pendiente: el cliente enviará la lista y el copy) ===
-  // Cada servicio se muestra en el inicio. Sin afirmaciones absolutas ni promesas de resultados.
-  services: [] as { name: string; description: string }[],
+  // === Google Maps (ficha "Dental Veracruz en Tijuana") ===
+  maps: {
+    /** src del iframe "Insertar un mapa" de Google Maps */
+    embedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3363.7212535661374!2d-117.01171038775088!3d32.53359097365693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9482f0c76382b%3A0xb14d413e246692c5!2sDental%20Veracruz%20en%20Tijuana!5e0!3m2!1ses-419!2smx!4v1790900466405!5m2!1ses-419!2smx',
+    /** Enlace directo a la ficha (CID 0xb14d413e246692c5 en decimal) */
+    placeUrl: 'https://maps.google.com/?cid=12775939453074444997',
+  },
+
+  // === Servicios ===
+  // Sin afirmaciones absolutas ni promesas de resultados (publicidad de salud / COFEPRIS).
+  services: {
+    general: [
+      { name: 'Limpieza dental', description: 'Retira placa y sarro para ayudar a mantener encías y dientes sanos.' },
+      { name: 'Revisión y diagnóstico', description: 'Valoramos tu boca para detectar a tiempo cualquier problema.' },
+      { name: 'Tratamientos preventivos', description: 'Cuidados que ayudan a prevenir caries y problemas futuros.' },
+      { name: 'Tratamientos restaurativos', description: 'Reparan dientes dañados para recuperar su forma y función.' },
+    ],
+    /** id define también el ícono (SVG en index.astro): 'ortodoncia' | 'implantes' | 'endodoncia' */
+    specialties: [
+      {
+        id: 'ortodoncia',
+        name: 'Ortodoncia',
+        description: 'Corrige la alineación de los dientes y la mordida con brackets o alineadores, mejorando la estética y la función dental.',
+        whatsappMessage: 'Hola, quiero informes de ortodoncia.',
+      },
+      {
+        id: 'implantes',
+        name: 'Implantes dentales',
+        description: 'Reemplazan dientes perdidos con piezas de titanio que se integran al hueso, para recuperar la función y la apariencia de tu sonrisa.',
+        whatsappMessage: 'Hola, quiero informes de implantes dentales.',
+      },
+      {
+        id: 'endodoncia',
+        name: 'Endodoncia',
+        description: 'Busca conservar dientes dañados o infectados: se retira la pulpa afectada y se sella el conducto, como alternativa a la extracción.',
+        whatsappMessage: 'Hola, quiero informes de endodoncia.',
+      },
+    ],
+  },
 
   // === Regulatorio (COFEPRIS / COEPRIS BC) ===
   // No se muestra nada hasta que el campo tenga valor real.

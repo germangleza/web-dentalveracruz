@@ -4,89 +4,260 @@ import FAQSchema from '../components/schema/FAQSchema.astro';
 import { SITE, whatsappUrl, telUrl } from '../config/site.config';
 
 const b = SITE.business;
+const { general, specialties } = SITE.services;
 const days: Record<string, string> = { Mo: 'Lun', Tu: 'Mar', We: 'Mié', Th: 'Jue', Fr: 'Vie', Sa: 'Sáb', Su: 'Dom' };
 const fmtHours = (h: string) => h.replace(/Mo|Tu|We|Th|Fr|Sa|Su/g, (d) => days[d]);
+const hours = b.openingHours.map(fmtHours).join(' · ');
 const fullAddress = `${b.address.street}, ${b.address.city}, ${b.address.state} ${b.address.zip}`;
-const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.name}, ${fullAddress}`)}`;
+const colonia = b.address.street.split(',').pop()?.trim();
 
-// FAQs de pacientes: rankean en Google y alimentan a los LLMs (GEO). Ampliar cuando llegue el copy.
+// Preguntas frecuentes: se muestran en la página y alimentan el schema FAQPage (Google + LLMs).
+// Sin precios, promesas de resultados ni afirmaciones absolutas.
 const faqs = [
-  { question: '¿Aceptan pacientes nuevos?', answer: b.acceptingNewPatients ? 'Sí, aceptamos pacientes nuevos. Agenda tu cita por WhatsApp o teléfono.' : 'Por el momento no aceptamos pacientes nuevos.' },
-  { question: '¿Dónde están ubicados?', answer: `Estamos en ${fullAddress}.` },
-  { question: '¿Cómo agendo una cita?', answer: `Escríbenos por WhatsApp o llámanos al ${b.phone}.` },
-  ...(b.openingHours.length
-    ? [{ question: '¿Cuáles son sus horarios?', answer: `${b.openingHours.map(fmtHours).join('; ')}.` }]
-    : []),
+  {
+    question: '¿Aceptan pacientes nuevos?',
+    answer: b.acceptingNewPatients
+      ? 'Sí. Puedes agendar tu primera cita por WhatsApp o por teléfono.'
+      : 'Por el momento no estamos recibiendo pacientes nuevos.',
+  },
+  {
+    question: '¿Cómo agendo una cita?',
+    answer: `Escríbenos por WhatsApp o llámanos al ${b.phone} y elige el horario que te acomode.`,
+  },
+  {
+    question: '¿Qué pasa en la primera visita?',
+    answer: 'Hacemos una valoración de tu boca, resolvemos tus dudas y te explicamos tu plan de tratamiento: opciones, tiempos y costos antes de empezar.',
+  },
+  {
+    question: '¿Me dicen el costo antes de iniciar un tratamiento?',
+    answer: 'Sí. Después de la valoración te presentamos el plan de tratamiento con su costo para que decidas con toda la información.',
+  },
+  {
+    question: '¿Qué tratamientos ofrecen?',
+    answer: `Odontología general (${general.map((s) => s.name.toLowerCase()).join(', ')}) y las especialidades de ${specialties.map((s) => s.name.toLowerCase()).join(', ')}.`,
+  },
+  {
+    question: '¿Cada cuánto debo hacerme una limpieza y revisión?',
+    answer: 'Depende de cada persona. Durante tu valoración te recomendamos la frecuencia adecuada según el estado de tus dientes y encías.',
+  },
+  {
+    question: '¿La ortodoncia es con brackets o con alineadores?',
+    answer: 'Trabajamos con ambas opciones. En la valoración revisamos tu caso y te explicamos cuál conviene más, con sus tiempos aproximados.',
+  },
+  {
+    question: '¿Cómo sé si puedo ponerme un implante dental?',
+    answer: 'Se necesita una valoración previa: revisamos el hueso, las encías y tu estado de salud general para saber si el implante es una opción para ti.',
+  },
+  {
+    question: '¿La endodoncia duele?',
+    answer: 'El tratamiento se realiza con anestesia local. Te explicamos el procedimiento y los cuidados posteriores antes de comenzar.',
+  },
+  {
+    question: '¿Dónde están ubicados?',
+    answer: `Estamos en ${fullAddress}.`,
+  },
+  ...(hours ? [{ question: '¿Cuál es su horario?', answer: `${hours}.` }] : []),
 ];
+
+const icons: Record<string, string> = {
+  ortodoncia: '<path d="M3 12h18"/><rect x="4" y="8" width="4" height="8" rx="1.5"/><rect x="10" y="8" width="4" height="8" rx="1.5"/><rect x="16" y="8" width="4" height="8" rx="1.5"/>',
+  implantes: '<path d="M7 3h10c0 3-1.5 5-5 5S7 6 7 3z"/><path d="M9 11h6M9.5 14h5M10 17h4M11 20h2"/>',
+  endodoncia: '<path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 5 2 8 .4 2.6 1 5.5 2.5 5.5S9.5 17 12 17s3 4 4.5 4 2.1-2.9 2.5-5.5c.5-3 2-5 2-8C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/><path d="M12 6v8"/>',
+};
 ---
-<BaseLayout>
+<BaseLayout fullWidth>
   <FAQSchema faqs={faqs} />
 
-  <section class="hero">
-    <h1>{SITE.name}</h1>
-    <p>{SITE.description}</p>
-    <p class="cta-row">
-      <a class="cta" href={whatsappUrl()} target="_blank" rel="noopener">Agenda por WhatsApp</a>
-      <a class="cta cta-secondary" href={telUrl()}>Llamar: {b.phone}</a>
-    </p>
+  <section id="inicio" class="hero">
+    <div class="container grid-2">
+      <div class="stack">
+        <p class="eyebrow">Clínica dental en Tijuana</p>
+        <h1>Odontología general y especialidades, en un solo lugar</h1>
+        <p class="lead muted">Desde tu limpieza y revisión hasta ortodoncia, implantes y endodoncia. Te valoramos y te explicamos tu plan de tratamiento antes de empezar.</p>
+        <div class="btn-row">
+          <a href={whatsappUrl()} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-hero">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+            Agendar por WhatsApp
+          </a>
+          <a href={telUrl()} class="btn btn-outline" data-track="llamada-hero">Llamar a la clínica</a>
+        </div>
+        <div class="hero-meta">
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>{colonia}, {b.address.city}, {b.address.state}</span>
+          {hours && <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{hours}</span>}
+        </div>
+      </div>
+      {SITE.heroImage
+        ? <img class="hero-media" src={SITE.heroImage} alt={`Consultorio de ${SITE.name}`} width="600" height="510" />
+        : <div class="hero-media hero-brand"><img src="/icon-512.png" alt="" width="220" height="220" /></div>}
+    </div>
   </section>
 
-  {SITE.services.length > 0 && (
-    <section id="servicios" aria-labelledby="servicios-title">
-      <h2 id="servicios-title">Servicios</h2>
-      <div class="services-grid">
-        {SITE.services.map((s) => (
-          <article class="service-card">
+  <section id="general" class="section general">
+    <div class="container grid-2">
+      <div class="stack">
+        <p class="eyebrow">Odontología general</p>
+        <h2 class="h2">El cuidado integral de tu salud bucal</h2>
+        <p class="muted">Servicios de odontología general para cuidar tu boca de forma completa: desde limpiezas y revisiones hasta tratamientos preventivos y restaurativos.</p>
+        <a href={whatsappUrl('Hola, quiero agendar una revisión.')} class="link-cta" target="_blank" rel="noopener" data-track="whatsapp-general">Agendar revisión →</a>
+      </div>
+      <div class="cards">
+        {general.map((s) => (
+          <article class="card"><h3>{s.name}</h3><p>{s.description}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="especialidades" class="section specialties">
+    <div class="container">
+      <div class="specialties-head">
+        <p class="eyebrow">Especialidades</p>
+        <h2 class="h2">Tratamientos especializados para cada caso</h2>
+      </div>
+      <div class="spec-grid">
+        {specialties.map((s) => (
+          <article class="spec">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9FD3DD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.id]} />
             <h3>{s.name}</h3>
             <p>{s.description}</p>
+            <a href={whatsappUrl(s.whatsappMessage)} target="_blank" rel="noopener" data-track={`whatsapp-${s.id}`}>Preguntar por {s.name.toLowerCase()} →</a>
           </article>
         ))}
       </div>
-    </section>
-  )}
-
-  <section id="ubicacion" aria-labelledby="ubicacion-title">
-    <h2 id="ubicacion-title">Ubicación{b.openingHours.length > 0 && ' y horarios'}</h2>
-    <address>
-      {b.address.street}<br />
-      {b.address.city}, {b.address.state} {b.address.zip}
-    </address>
-    <p><a href={mapsUrl} target="_blank" rel="noopener">Ver en Google Maps</a></p>
-    {b.openingHours.length > 0 && (
-      <ul>
-        {b.openingHours.map((h) => <li>{fmtHours(h)}</li>)}
-      </ul>
-    )}
+    </div>
   </section>
 
-  <section id="faq" aria-labelledby="faq-title">
-    <h2 id="faq-title">Preguntas frecuentes</h2>
-    {faqs.map((f) => (
-      <details>
-        <summary>{f.question}</summary>
-        <p>{f.answer}</p>
-      </details>
-    ))}
+  <section class="section">
+    <div class="container steps-wrap">
+      <h2 class="h2">Tu primera visita</h2>
+      <ol class="steps">
+        <li><span class="step-num">01</span><h3>Agenda tu cita</h3><p class="muted">Escríbenos por WhatsApp o llámanos y elige el horario que te acomode.</p></li>
+        <li><span class="step-num">02</span><h3>Valoración</h3><p class="muted">Revisamos tu caso y resolvemos tus dudas.</p></li>
+        <li><span class="step-num">03</span><h3>Plan de tratamiento</h3><p class="muted">Te explicamos opciones, tiempos y costos antes de empezar.</p></li>
+      </ol>
+    </div>
   </section>
 
-  <section id="contacto" aria-labelledby="contacto-title">
-    <h2 id="contacto-title">Contacto</h2>
-    <p>
-      <a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp {b.phone}</a> ·
-      <a href={telUrl()}>Llamar</a>
-      {b.email && <> · <a href={`mailto:${b.email}`}>{b.email}</a></>}
-    </p>
+  <section id="preguntas" class="section faq" aria-labelledby="faq-title">
+    <div class="container faq-wrap">
+      <div class="stack faq-head">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 id="faq-title" class="h2">Lo que más nos preguntan</h2>
+        <p class="muted">¿Tienes otra duda? Escríbenos por WhatsApp y te respondemos.</p>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.question}</summary>
+            <p>{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="ubicacion" class="section contact">
+    <div id="contacto" class="container grid-2">
+      <div class="stack">
+        <p class="eyebrow">Ubicación y contacto</p>
+        <h2 class="h2">Agenda tu cita</h2>
+        <ul class="contact-list">
+          <li><strong>Dirección:</strong> {fullAddress}</li>
+          <li><strong>Teléfono:</strong> <a href={telUrl()}>{b.phone}</a></li>
+          <li><strong>WhatsApp:</strong> <a href={whatsappUrl()} target="_blank" rel="noopener">{b.phone}</a></li>
+          {hours && <li><strong>Horario:</strong> {hours}</li>}
+          {b.email && <li><strong>Correo:</strong> <a href={`mailto:${b.email}`}>{b.email}</a></li>}
+        </ul>
+        <div class="btn-row">
+          <a href={whatsappUrl()} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-contacto">Escribir por WhatsApp</a>
+          <a href={SITE.maps.placeUrl} class="btn btn-outline" target="_blank" rel="noopener" data-track="como-llegar">Cómo llegar</a>
+        </div>
+      </div>
+      <iframe
+        class="map"
+        src={SITE.maps.embedUrl}
+        title={`Mapa de ubicación de ${SITE.name} en Google Maps`}
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
   </section>
 </BaseLayout>
+
 <style>
-  .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .cta {
-    display: inline-block; background: #0e7490; color: #fff;
-    padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 600;
+  .link-cta { font-weight: 600; color: var(--accent); min-height: 44px; display: inline-flex; align-items: center; align-self: flex-start; }
+
+  /* Hero */
+  .hero { background: var(--bg-soft); }
+  .hero .grid-2 { padding-block: 72px; align-items: center; }
+  .hero .stack { gap: 24px; }
+  .hero h1 { margin: 0; font-weight: 700; font-size: clamp(36px, 5vw, 56px); line-height: 1.1; letter-spacing: -0.02em; }
+  .hero .lead { margin: 0; font-size: 20px; max-width: 34rem; }
+  .hero .btn { font-size: 18px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; font-size: 15px; color: var(--text-2); }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta svg { color: var(--accent); flex-shrink: 0; }
+  .hero-media { border-radius: 24px; aspect-ratio: 4 / 3.4; width: 100%; object-fit: cover; }
+  .hero-brand { background: linear-gradient(160deg, #fff 0%, var(--placeholder) 100%); display: grid; place-items: center; }
+  .hero-brand img { width: 40%; max-width: 220px; }
+
+  /* General */
+  .general .grid-2 { align-items: start; }
+  .general .stack { gap: 20px; }
+  .general .stack p { margin: 0; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
+  .card { border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+  .card h3 { margin: 0; font-size: 19px; font-weight: 600; }
+  .card p { margin: 0; color: var(--text-2); font-size: 16px; }
+
+  /* Especialidades */
+  .specialties { background: var(--ink); color: #fff; }
+  .specialties .container { display: flex; flex-direction: column; gap: 40px; }
+  .specialties .eyebrow { color: var(--on-dark-accent); }
+  .specialties-head { display: flex; flex-direction: column; gap: 16px; max-width: 40rem; }
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+  .spec { background: var(--dark-card); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+  .spec h3 { margin: 0; font-size: 24px; font-weight: 600; }
+  .spec p { margin: 0; color: var(--on-dark); }
+  .spec a { margin-top: auto; color: #fff; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+  .spec a:focus-visible { outline-color: var(--on-dark-accent); }
+
+  /* Pasos */
+  .steps-wrap { display: flex; flex-direction: column; gap: 40px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 32px; list-style: none; padding: 0; margin: 0; }
+  .steps li { display: flex; flex-direction: column; gap: 10px; }
+  .steps h3 { margin: 0; font-size: 20px; font-weight: 600; }
+  .steps p { margin: 0; }
+  .step-num { font-family: var(--font-display); font-weight: 700; font-size: 32px; color: var(--accent); }
+
+  /* FAQ */
+  .faq { background: var(--bg-soft); }
+  .faq-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; align-items: start; }
+  .faq-head { gap: 16px; position: sticky; top: 104px; }
+  .faq-head p { margin: 0; }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-list details { background: #fff; border: 1px solid var(--border); border-radius: 16px; }
+  .faq-list summary {
+    cursor: pointer; list-style: none; padding: 20px 56px 20px 24px; position: relative;
+    font-family: var(--font-display); font-weight: 600; font-size: 18px; min-height: 44px;
   }
-  .cta-secondary { background: transparent; color: #0e7490; border: 2px solid #0e7490; }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-  .service-card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.25rem; }
-  .service-card h3 { margin-top: 0; }
-  address { font-style: normal; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after {
+    content: '+'; position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    font-size: 24px; font-weight: 500; color: var(--accent);
+  }
+  .faq-list details[open] summary::after { content: '−'; }
+  .faq-list details p { margin: 0; padding: 0 24px 20px; color: var(--text-2); }
+  @media (max-width: 860px) {
+    .faq-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .faq-head { position: static; }
+  }
+
+  /* Contacto */
+  .contact .grid-2 { gap: 40px; align-items: stretch; }
+  .contact .stack { gap: 20px; }
+  .contact-list { display: flex; flex-direction: column; gap: 12px; color: var(--text-2); list-style: none; padding: 0; margin: 0; }
+  .contact-list strong { color: var(--ink); }
+  .map { width: 100%; min-height: 360px; height: 100%; border: 0; border-radius: 24px; background: var(--placeholder); }
 </style>
