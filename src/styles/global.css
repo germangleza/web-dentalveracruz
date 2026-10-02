@@ -12,6 +12,8 @@
   --on-dark-accent: #9FD3DD;
   --font-display: 'Sora', system-ui, sans-serif;
   --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.3s;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
@@ -73,3 +75,58 @@ h1, h2, h3 { font-family: var(--font-display); }
 /* WhatsApp flotante */
 .wa-float { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 999px; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(11, 31, 38, 0.25); z-index: 20; }
 .wa-float:hover { color: #fff; filter: brightness(0.95); }
+
+/* ============ Motion ============
+ * Mejora progresiva: el contenido solo se oculta si hay JS (clase .js en <html>)
+ * y el usuario no pidió reducir movimiento. Sin JS todo se ve normal.
+ */
+.btn, .nav a, .card, .spec, .wa-float, .site-footer a { transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), filter var(--dur) var(--ease); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary:hover { box-shadow: 0 8px 20px rgba(27, 111, 128, 0.3); }
+.btn-outline:hover { background: var(--ink); color: #fff; }
+.btn:active { transform: translateY(0) scale(0.98); }
+.card:hover, .spec:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(11, 31, 38, 0.1); }
+.spec:hover { box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); }
+
+/* Subrayado animado en el menú */
+.nav a:not(.btn) { background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; padding-block: 2px; transition: background-size var(--dur) var(--ease); }
+.nav a:not(.btn):hover { background-size: 100% 2px; }
+
+/* Header: sombra al hacer scroll */
+.site-header { transition: box-shadow var(--dur) var(--ease); }
+.site-header.scrolled { box-shadow: 0 6px 20px rgba(11, 31, 38, 0.08); }
+
+/* Logo flotando */
+.float { animation: float 5s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-10px); } }
+
+/* WhatsApp: entrada + pulso */
+.wa-float { animation: wa-in 0.6s var(--ease) 0.8s both; }
+.wa-float::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #25D366; z-index: -1; animation: wa-pulse 2.8s ease-out 2s infinite; }
+.wa-float:hover { transform: scale(1.08); }
+@keyframes wa-in { from { opacity: 0; transform: scale(0.4) translateY(20px); } }
+@keyframes wa-pulse { 0% { transform: scale(1); opacity: 0.6; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada del hero al cargar */
+  .js [data-hero] > * { animation: rise 0.8s var(--ease) both; }
+  .js [data-hero] > :nth-child(2) { animation-delay: 0.08s; }
+  .js [data-hero] > :nth-child(3) { animation-delay: 0.16s; }
+  .js [data-hero] > :nth-child(4) { animation-delay: 0.24s; }
+  .js .hero-media { animation: pop 1s var(--ease) 0.2s both; }
+
+  /* Aparición al hacer scroll */
+  /* Usa `translate` (no `transform`) para no chocar con los hover que usan transform */
+  .js [data-reveal], .js [data-reveal-group] > * {
+    opacity: 0; translate: 0 28px;
+    transition: opacity 0.7s var(--ease), translate 0.7s var(--ease), transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].in, .js [data-reveal-group].in > * { opacity: 1; translate: none; }
+  .js .page { animation: rise 0.7s var(--ease) both; }
+  /* Tras aparecer, los hijos vuelven a sus transiciones de hover normales */
+  .js [data-reveal-group].done > * { transition-delay: 0s; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+@keyframes pop { from { opacity: 0; transform: scale(0.94); } }
