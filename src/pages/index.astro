@@ -86,7 +86,6 @@ const icons: Record<string, string> = {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
             Agendar por WhatsApp
           </a>
-          <a href={telUrl()} class="btn btn-outline" data-track="llamada-hero">Llamar a la clínica</a>
         </div>
         <div class="hero-meta">
           <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>{colonia}, {b.address.city}, {b.address.state}</span>
@@ -105,7 +104,7 @@ const icons: Record<string, string> = {
         <p class="eyebrow">Odontología general</p>
         <h2 class="h2">El cuidado integral de tu salud bucal</h2>
         <p class="muted">Servicios de odontología general para cuidar tu boca de forma completa: desde limpiezas y revisiones hasta tratamientos preventivos y restaurativos.</p>
-        <a href={whatsappUrl('Hola, quiero agendar una revisión.')} class="link-cta" target="_blank" rel="noopener" data-track="whatsapp-general">Agendar revisión →</a>
+        <a href={whatsappUrl()} class="btn btn-primary cta-start" target="_blank" rel="noopener" data-track="whatsapp-general">Agendar cita</a>
       </div>
       <div class="cards">
         {general.map((s) => (
@@ -127,10 +126,10 @@ const icons: Record<string, string> = {
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9FD3DD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.id]} />
             <h3>{s.name}</h3>
             <p>{s.description}</p>
-            <a href={whatsappUrl(s.whatsappMessage)} target="_blank" rel="noopener" data-track={`whatsapp-${s.id}`}>Preguntar por {s.id === 'all-on' ? s.name : s.name.toLowerCase()} →</a>
           </article>
         ))}
       </div>
+      <a href={whatsappUrl()} class="btn btn-primary cta-start" target="_blank" rel="noopener" data-track="whatsapp-especialidades">Agendar cita</a>
     </div>
   </section>
 
@@ -193,7 +192,7 @@ const icons: Record<string, string> = {
 </BaseLayout>
 
 <style>
-  .link-cta { font-weight: 600; color: var(--accent); min-height: 44px; display: inline-flex; align-items: center; align-self: flex-start; }
+  .cta-start { align-self: flex-start; }
 
   /* Hero */
   .hero { background: var(--bg-soft); }
@@ -227,8 +226,7 @@ const icons: Record<string, string> = {
   .spec { background: var(--dark-card); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
   .spec h3 { margin: 0; font-size: 24px; font-weight: 600; }
   .spec p { margin: 0; color: var(--on-dark); }
-  .spec a { margin-top: auto; color: #fff; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
-  .spec a:focus-visible { outline-color: var(--on-dark-accent); }
+  .specialties .btn:focus-visible { outline-color: var(--on-dark-accent); }
 
   /* Pasos */
   .steps-wrap { display: flex; flex-direction: column; gap: 40px; }
