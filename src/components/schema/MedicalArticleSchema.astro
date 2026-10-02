@@ -44,7 +44,7 @@ const schema: Record<string, unknown> = {
     name: SITE.name,
     logo: { '@type': 'ImageObject', url: new URL(SITE.logo, SITE.url).href },
   },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': Astro.url.href },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': Astro.url.href.replace(/\.html$/, '') },
 };
 
 if (reviewer) {

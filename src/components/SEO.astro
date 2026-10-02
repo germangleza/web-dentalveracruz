@@ -29,7 +29,9 @@ const {
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${SITE.name}` : SITE.title;
-const canonical = Astro.props.canonical ?? new URL(Astro.url.pathname, SITE.url).href;
+// build.format 'file' hace que pathname termine en .html; la URL pública (cleanUrls) no lo lleva
+const cleanPath = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/(.)\/$/, '$1');
+const canonical = Astro.props.canonical ?? new URL(cleanPath, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 ---
 
