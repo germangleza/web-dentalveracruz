@@ -34,8 +34,11 @@
 
 | Keyword | Intención | Página destino |
 |---------|-----------|----------------|
-|         |           |                |
-|         |           |                |
+| all on 4 tijuana / all on 6 tijuana | Transaccional | /all-on-4-y-all-on-6-tijuana |
+| implantes all on 4 precio tijuana | Comercial | /all-on-4-y-all-on-6-tijuana (FAQ costo) |
+| all on 4 vs all on 6 | Informativa | /all-on-4-y-all-on-6-tijuana (comparativa) |
+| dentista en tijuana / clínica dental tijuana | Local | / |
+| ortodoncia / endodoncia / implantes tijuana | Transaccional | / (páginas propias: pendiente) |
 
 ### Temas SÍ (contenido a producir)
 

@@ -111,6 +111,8 @@ export const SITE = {
       {
         id: 'all-on',
         name: 'All-on-4 y All-on-6',
+        /** Página propia del tratamiento (SEO/GEO). Opcional en cada especialidad. */
+        url: '/all-on-4-y-all-on-6-tijuana',
         description: 'Rehabilitación de arcada completa: una prótesis fija sobre 4 o 6 implantes, para quienes han perdido la mayoría o todos sus dientes. Requiere valoración previa.',
       },
       {

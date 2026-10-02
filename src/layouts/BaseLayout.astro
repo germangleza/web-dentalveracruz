@@ -24,6 +24,7 @@ const props = { ...seoProps, noindex: SITE.prelaunch || seoProps.noindex };
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const b = SITE.business;
 const reg = SITE.regulatory;
+const treatmentPages = SITE.services.specialties.flatMap((s) => ('url' in s ? [{ name: s.name, url: s.url }] : []));
 const socials = [
   SITE.socials.facebook && { name: 'Facebook', url: `https://facebook.com/${SITE.socials.facebook}` },
   SITE.socials.instagram && { name: 'Instagram', url: `https://instagram.com/${SITE.socials.instagram}` },
@@ -86,6 +87,7 @@ const socials = [
           <span>© {new Date().getFullYear()} {SITE.name}{b.legalName && ` · ${b.legalName}`}</span>
         </div>
         <div class="footer-links">
+          {treatmentPages.map((t) => <a href={t.url}>{t.name} en {b.address.city}</a>)}
           <a href="/aviso-de-privacidad">Aviso de privacidad</a>
           <a href={SITE.maps.placeUrl} target="_blank" rel="noopener">Google Maps</a>
           {socials.map((s) => <a href={s.url} target="_blank" rel="noopener">{s.name}</a>)}

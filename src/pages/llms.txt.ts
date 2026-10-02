@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { SITE } from '../config/site.config';
+import { SITE, formatHours } from '../config/site.config';
 
 /**
  * llms.txt — estándar emergente para GEO.
@@ -18,7 +18,12 @@ export const GET: APIRoute = async () => {
 ## Información
 - Sitio: ${SITE.url}
 - Ubicación: ${SITE.business.address.street}, ${SITE.business.address.city}, ${SITE.business.address.state}
+- Horario: ${SITE.business.openingHours.map(formatHours).join(' · ')}${SITE.business.openingHours.some((h) => h.includes('Su')) ? '' : ' (domingo cerrado)'}
+- Pacientes: México y Estados Unidos (turismo médico)
 - Teléfono / WhatsApp: ${SITE.business.phone}${SITE.business.email ? `\n- Correo: ${SITE.business.email}` : ''}
+
+## Tratamientos
+${SITE.services.specialties.map((s) => `- ${'url' in s ? `[${s.name}](${SITE.url}${s.url})` : s.name}: ${s.description}`).join('\n')}
 
 ## Blog
 ${posts.map((p) => `- [${p.data.title}](${SITE.url}/blog/${p.id}): ${p.data.description}`).join('\n')}

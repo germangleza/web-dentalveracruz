@@ -1,0 +1,65 @@
+---
+/**
+ * JSON-LD para páginas de tratamiento: MedicalWebPage cuyo tema (about) es un
+ * MedicalProcedure, ofrecido por la clínica (Dentist). Refuerza SEO local y GEO:
+ * los buscadores y LLMs entienden QUÉ tratamiento, DÓNDE y QUIÉN lo ofrece.
+ * Uso: <MedicalProcedureSchema name="..." description="..." url="/ruta" ... />
+ */
+import { SITE } from '../../config/site.config';
+
+interface Props {
+  name: string;
+  alternateName?: string[];
+  description: string;
+  url: string;
+  procedureType?: 'SurgicalProcedure' | 'NoninvasiveProcedure' | 'PercutaneousProcedure';
+  bodyLocation?: string;
+  preparation?: string;
+  howPerformed?: string;
+  followup?: string;
+  lastReviewed?: string; // ISO date
+  sources?: { title: string; url: string }[];
+}
+const p = Astro.props;
+const pageUrl = new URL(p.url, SITE.url).href;
+const b = SITE.business;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  '@id': pageUrl,
+  url: pageUrl,
+  name: p.name,
+  description: p.description,
+  inLanguage: SITE.lang,
+  audience: { '@type': 'Patient' },
+  ...(p.lastReviewed && { lastReviewed: p.lastReviewed, dateModified: p.lastReviewed }),
+  ...(p.sources?.length && { citation: p.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })) }),
+  about: {
+    '@type': 'MedicalProcedure',
+    name: p.name,
+    ...(p.alternateName && { alternateName: p.alternateName }),
+    description: p.description,
+    ...(p.procedureType && { procedureType: `https://schema.org/${p.procedureType}` }),
+    ...(p.bodyLocation && { bodyLocation: p.bodyLocation }),
+    ...(p.preparation && { preparation: p.preparation }),
+    ...(p.howPerformed && { howPerformed: p.howPerformed }),
+    ...(p.followup && { followup: p.followup }),
+  },
+  provider: {
+    '@type': b.type,
+    name: SITE.name,
+    url: SITE.url,
+    telephone: b.phone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: b.address.street,
+      addressLocality: b.address.city,
+      addressRegion: b.address.state,
+      postalCode: b.address.zip,
+      addressCountry: b.address.country,
+    },
+  },
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
