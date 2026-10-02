@@ -25,7 +25,7 @@ export const SITE = {
   // TODO: dominio final pendiente (SIN slash al final)
   url: 'https://ejemplo.com',
   title: 'Dental Veracruz | Clínica dental en Tijuana',
-  description: 'Clínica dental en Tijuana: odontología general, ortodoncia, implantes dentales y endodoncia. Agenda tu cita por WhatsApp.',
+  description: 'Clínica dental en Tijuana: odontología general, ortodoncia, implantes, All-on-4 y endodoncia. Pacientes de México y EE. UU. Agenda por WhatsApp.',
   locale: 'es_MX',
   lang: 'es',
 
@@ -54,7 +54,7 @@ export const SITE = {
      * 'MedicalOrganization'→ hospitales, laboratorios, organizaciones grandes
      */
     type: 'Dentist' as 'MedicalClinic' | 'Physician' | 'Dentist' | 'MedicalOrganization',
-    legalName: '',                           // TODO: razón social, si aplica
+    legalName: 'JERGARALVER',                // Razón social (TODO: confirmar régimen, p. ej. S.A. de C.V.)
     email: '',                               // TODO: correo de contacto
     phone: '+52 664 780 8302',
     /** WhatsApp en formato internacional sin "+" ni espacios (para wa.me) */
@@ -71,8 +71,8 @@ export const SITE = {
     },
     /** Tomadas del embed de Google Maps (centro del mapa). Verificar con el pin exacto. */
     geo: { lat: 32.53359097365693, lng: -117.01171038775088 },
-    /** TODO: horarios reales, formato schema.org: 'Mo-Fr 09:00-19:00', 'Sa 09:00-14:00' */
-    openingHours: [] as string[],
+    /** Formato schema.org (igual que Google Business). */
+    openingHours: ['Mo-Fr 09:00-17:00', 'Sa 08:00-16:00', 'Su 09:00-13:00'] as string[],
     /** ¿Acepta pacientes nuevos? (aparece en resultados de Google) */
     acceptingNewPatients: true,
     priceRange: '$$',                        // $, $$, $$$
@@ -96,7 +96,7 @@ export const SITE = {
       { name: 'Tratamientos preventivos', description: 'Cuidados que ayudan a prevenir caries y problemas futuros.' },
       { name: 'Tratamientos restaurativos', description: 'Reparan dientes dañados para recuperar su forma y función.' },
     ],
-    /** id define también el ícono (SVG en index.astro): 'ortodoncia' | 'implantes' | 'endodoncia' */
+    /** id define también el ícono (SVG en index.astro): 'ortodoncia' | 'implantes' | 'all-on' | 'endodoncia' */
     specialties: [
       {
         id: 'ortodoncia',
@@ -109,6 +109,12 @@ export const SITE = {
         name: 'Implantes dentales',
         description: 'Reemplazan dientes perdidos con piezas de titanio que se integran al hueso, para recuperar la función y la apariencia de tu sonrisa.',
         whatsappMessage: 'Hola, quiero informes de implantes dentales.',
+      },
+      {
+        id: 'all-on',
+        name: 'All-on-4 y All-on-6',
+        description: 'Rehabilitación de arcada completa: una prótesis fija sobre 4 o 6 implantes, para quienes han perdido la mayoría o todos sus dientes. Requiere valoración previa.',
+        whatsappMessage: 'Hola, quiero informes de All-on-4 / All-on-6.',
       },
       {
         id: 'endodoncia',
@@ -136,8 +142,8 @@ export const SITE = {
   // === Redes sociales ===
   socials: {
     twitter: '',
-    instagram: '',
-    facebook: '',
+    instagram: 'dental.veracruz.en.tijuana',
+    facebook: 'DentalVeracruzTijuana',
     linkedin: '',
     youtube: '',
     tiktok: '',
@@ -174,6 +180,16 @@ export function socialUrls(): string[] {
     s.youtube && `https://youtube.com/@${s.youtube}`,
     s.tiktok && `https://tiktok.com/@${s.tiktok}`,
   ].filter(Boolean) as string[];
+}
+
+const DAY_NAMES: Record<string, string> = { Mo: 'Lun', Tu: 'Mar', We: 'Mié', Th: 'Jue', Fr: 'Vie', Sa: 'Sáb', Su: 'Dom' };
+
+/** 'Mo-Fr 09:00-17:00' → 'Lun a Vie 9:00 – 17:00' */
+export function formatHours(h: string): string {
+  const [days, time] = h.split(' ');
+  const d = days.split('-').map((x) => DAY_NAMES[x] ?? x).join(' a ');
+  const t = time.split('-').map((x) => x.replace(/^0/, '')).join(' – ');
+  return `${d} ${t}`;
 }
 
 export function whatsappUrl(message: string = SITE.business.whatsappMessage): string {

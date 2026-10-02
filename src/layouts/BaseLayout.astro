@@ -82,9 +82,10 @@ const socials = [
           </address>
           {reg.sanitaryResponsible && <span>Responsable sanitario: {reg.sanitaryResponsible}</span>}
           {reg.advertisingPermit && <span>Aviso de publicidad COFEPRIS: {reg.advertisingPermit}</span>}
-          <span>© {new Date().getFullYear()} {b.legalName || SITE.name}</span>
+          <span>© {new Date().getFullYear()} {SITE.name}{b.legalName && ` · ${b.legalName}`}</span>
         </div>
         <div class="footer-links">
+          <a href="/aviso-de-privacidad">Aviso de privacidad</a>
           <a href={SITE.maps.placeUrl} target="_blank" rel="noopener">Google Maps</a>
           {socials.map((s) => <a href={s.url} target="_blank" rel="noopener">{s.name}</a>)}
         </div>

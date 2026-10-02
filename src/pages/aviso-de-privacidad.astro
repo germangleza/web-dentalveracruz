@@ -1,0 +1,104 @@
+---
+/**
+ * Aviso de privacidad integral (LFPDPPP). Datos del responsable desde site.config.ts.
+ * ⚖️ Borrador base: debe revisarlo el cliente o su asesor legal antes del lanzamiento.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, whatsappUrl, telUrl } from '../config/site.config';
+
+const b = SITE.business;
+const responsable = b.legalName || SITE.name;
+const domicilio = `${b.address.street}, C.P. ${b.address.zip}, ${b.address.city}, ${b.address.state}, México`;
+const updated = '2 de octubre de 2026';
+---
+<BaseLayout title="Aviso de privacidad" description={`Aviso de privacidad integral de ${SITE.name}: qué datos personales recabamos, para qué los usamos y cómo ejercer tus derechos ARCO.`}>
+  <article class="post legal">
+    <h1>Aviso de privacidad integral</h1>
+    <p class="meta">Última actualización: {updated}</p>
+
+    <h2>1. Responsable</h2>
+    <p>
+      <strong>{responsable}</strong>, que opera la clínica <strong>{SITE.name}</strong>, con domicilio en {domicilio},
+      es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos
+      Personales en Posesión de los Particulares y demás normativa aplicable.
+    </p>
+
+    <h2>2. Datos personales que recabamos</h2>
+    <ul>
+      <li><strong>Identificación y contacto:</strong> nombre, edad, fecha de nacimiento, teléfono, WhatsApp, correo electrónico y domicilio.</li>
+      <li><strong>Facturación:</strong> RFC, razón social y domicilio fiscal, cuando solicites factura.</li>
+      <li>
+        <strong>Datos sensibles de salud:</strong> historia clínica, antecedentes médicos y dentales, padecimientos,
+        alergias, medicamentos, radiografías, fotografías clínicas y resultados de estudios.
+      </li>
+    </ul>
+    <p>
+      Los datos de salud se consideran <strong>datos personales sensibles</strong>. Solo los tratamos con tu
+      consentimiento expreso y por escrito, que te solicitaremos en la clínica antes de tu atención.
+    </p>
+
+    <h2>3. Finalidades</h2>
+    <p>Finalidades necesarias para la relación contigo:</p>
+    <ul>
+      <li>Agendar, confirmar y dar seguimiento a tus citas.</li>
+      <li>Valorarte, elaborar tu diagnóstico y plan de tratamiento, y brindarte atención odontológica.</li>
+      <li>Integrar y conservar tu expediente clínico conforme a la NOM-004-SSA3-2012.</li>
+      <li>Cobrar los servicios y emitir comprobantes fiscales.</li>
+      <li>Cumplir obligaciones legales y requerimientos de autoridades sanitarias.</li>
+    </ul>
+    <p>Finalidades adicionales (no necesarias):</p>
+    <ul>
+      <li>Enviarte recordatorios de revisiones periódicas, promociones e información de nuestros servicios.</li>
+      <li>Pedirte tu opinión sobre la atención recibida.</li>
+    </ul>
+    <p>
+      Si no deseas que usemos tus datos para las finalidades adicionales, puedes indicarlo en cualquier momento por
+      los medios de contacto de este aviso. Negarte no afectará tu atención.
+    </p>
+
+    <h2>4. Transferencias</h2>
+    <p>
+      No vendemos ni compartimos tus datos con terceros para fines comerciales. Solo podremos transferirlos sin tu
+      consentimiento en los casos que permite la ley, por ejemplo a autoridades sanitarias o judiciales que lo
+      requieran, o cuando sea necesario para tu atención médica (como laboratorios o gabinetes de imagen a los que
+      te refiramos).
+    </p>
+
+    <h2>5. Derechos ARCO y revocación del consentimiento</h2>
+    <p>
+      Tienes derecho a <strong>acceder</strong> a tus datos, <strong>rectificarlos</strong>, <strong>cancelarlos</strong>
+      u <strong>oponerte</strong> a su uso (derechos ARCO), así como a revocar tu consentimiento o limitar su uso.
+      Para ejercerlos, envía tu solicitud por WhatsApp al <a href={whatsappUrl('Hola, quiero ejercer mis derechos ARCO.')} target="_blank" rel="noopener">{b.phone}</a>
+      {b.email && <> o al correo <a href={`mailto:${b.email}`}>{b.email}</a></>}, o preséntala en nuestro domicilio. Incluye:
+    </p>
+    <ul>
+      <li>Tu nombre y un medio para responderte.</li>
+      <li>Una identificación oficial (o la de tu representante legal, con el documento que lo acredite).</li>
+      <li>La descripción clara de los datos y del derecho que quieres ejercer.</li>
+    </ul>
+    <p>
+      Te responderemos en un plazo máximo de 20 días hábiles. Algunos datos del expediente clínico deben conservarse
+      por el tiempo que establece la normativa sanitaria aunque solicites su cancelación.
+    </p>
+
+    <h2>6. Sitio web, cookies y servicios de terceros</h2>
+    <p>
+      Este sitio no usa formularios ni cookies propias de seguimiento. Incluye un mapa de Google Maps y tipografías de
+      Google Fonts, y los botones de contacto abren WhatsApp; esos servicios pueden recabar información conforme a sus
+      propias políticas de privacidad.
+    </p>
+
+    <h2>7. Cambios a este aviso</h2>
+    <p>
+      Cualquier cambio a este aviso se publicará en esta misma página. Si tienes dudas, contáctanos al
+      <a href={telUrl()}>{b.phone}</a>.
+    </p>
+  </article>
+</BaseLayout>
+<style>
+  .legal h1 { font-size: clamp(30px, 4vw, 40px); line-height: 1.15; }
+  .legal h2 { font-size: 22px; margin-top: 2.25rem; }
+  .legal p, .legal li { color: var(--text-2); }
+  .legal strong { color: var(--ink); }
+  .legal a { color: var(--accent); }
+</style>

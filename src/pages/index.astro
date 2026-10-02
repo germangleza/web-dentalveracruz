@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQSchema from '../components/schema/FAQSchema.astro';
-import { SITE, whatsappUrl, telUrl } from '../config/site.config';
+import { SITE, whatsappUrl, telUrl, formatHours } from '../config/site.config';
 
 const b = SITE.business;
 const { general, specialties } = SITE.services;
-const days: Record<string, string> = { Mo: 'Lun', Tu: 'Mar', We: 'Mié', Th: 'Jue', Fr: 'Vie', Sa: 'Sáb', Su: 'Dom' };
-const fmtHours = (h: string) => h.replace(/Mo|Tu|We|Th|Fr|Sa|Su/g, (d) => days[d]);
-const hours = b.openingHours.map(fmtHours).join(' · ');
+const hours = b.openingHours.map(formatHours).join(' · ');
 const fullAddress = `${b.address.street}, ${b.address.city}, ${b.address.state} ${b.address.zip}`;
 const colonia = b.address.street.split(',').pop()?.trim();
 
@@ -37,6 +35,14 @@ const faqs = [
     answer: `Odontología general (${general.map((s) => s.name.toLowerCase()).join(', ')}) y las especialidades de ${specialties.map((s) => s.name.toLowerCase()).join(', ')}.`,
   },
   {
+    question: '¿Atienden pacientes que vienen de Estados Unidos?',
+    answer: 'Sí, recibimos con frecuencia pacientes de Estados Unidos. Escríbenos por WhatsApp antes de tu viaje para coordinar tu valoración y planear tus citas.',
+  },
+  {
+    question: '¿Qué es All-on-4 y All-on-6?',
+    answer: 'Es una rehabilitación de arcada completa: una prótesis fija que se sostiene sobre 4 o 6 implantes. Está pensada para personas que han perdido la mayoría o todos sus dientes; en la valoración revisamos si es una opción para ti y cuál de las dos conviene.',
+  },
+  {
     question: '¿Cada cuánto debo hacerme una limpieza y revisión?',
     answer: 'Depende de cada persona. Durante tu valoración te recomendamos la frecuencia adecuada según el estado de tus dientes y encías.',
   },
@@ -62,6 +68,7 @@ const faqs = [
 const icons: Record<string, string> = {
   ortodoncia: '<path d="M3 12h18"/><rect x="4" y="8" width="4" height="8" rx="1.5"/><rect x="10" y="8" width="4" height="8" rx="1.5"/><rect x="16" y="8" width="4" height="8" rx="1.5"/>',
   implantes: '<path d="M7 3h10c0 3-1.5 5-5 5S7 6 7 3z"/><path d="M9 11h6M9.5 14h5M10 17h4M11 20h2"/>',
+  'all-on': '<path d="M3 9c3-3 15-3 18 0"/><path d="M5 9.5c0 2 1 3 2 3s2-1 2-3M10 10c0 2 1 3 2 3s2-1 2-3M15 9.5c0 2 1 3 2 3s2-1 2-3"/><path d="M7 13v7M12 13v7M17 13v7"/>',
   endodoncia: '<path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 5 2 8 .4 2.6 1 5.5 2.5 5.5S9.5 17 12 17s3 4 4.5 4 2.1-2.9 2.5-5.5c.5-3 2-5 2-8C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/><path d="M12 6v8"/>',
 };
 ---
@@ -73,7 +80,7 @@ const icons: Record<string, string> = {
       <div class="stack">
         <p class="eyebrow">Clínica dental en Tijuana</p>
         <h1>Odontología general y especialidades, en un solo lugar</h1>
-        <p class="lead muted">Desde tu limpieza y revisión hasta ortodoncia, implantes y endodoncia. Te valoramos y te explicamos tu plan de tratamiento antes de empezar.</p>
+        <p class="lead muted">Desde tu limpieza y revisión hasta ortodoncia, implantes, All-on-4 y endodoncia. Te valoramos y te explicamos tu plan de tratamiento antes de empezar. Recibimos pacientes de México y Estados Unidos.</p>
         <div class="btn-row">
           <a href={whatsappUrl()} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-hero">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
@@ -120,7 +127,7 @@ const icons: Record<string, string> = {
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9FD3DD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.id]} />
             <h3>{s.name}</h3>
             <p>{s.description}</p>
-            <a href={whatsappUrl(s.whatsappMessage)} target="_blank" rel="noopener" data-track={`whatsapp-${s.id}`}>Preguntar por {s.name.toLowerCase()} →</a>
+            <a href={whatsappUrl(s.whatsappMessage)} target="_blank" rel="noopener" data-track={`whatsapp-${s.id}`}>Preguntar por {s.id === 'all-on' ? s.name : s.name.toLowerCase()} →</a>
           </article>
         ))}
       </div>
@@ -216,7 +223,7 @@ const icons: Record<string, string> = {
   .specialties .container { display: flex; flex-direction: column; gap: 40px; }
   .specialties .eyebrow { color: var(--on-dark-accent); }
   .specialties-head { display: flex; flex-direction: column; gap: 16px; max-width: 40rem; }
-  .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 20px; }
   .spec { background: var(--dark-card); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
   .spec h3 { margin: 0; font-size: 24px; font-weight: 600; }
   .spec p { margin: 0; color: var(--on-dark); }
