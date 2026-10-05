@@ -12,6 +12,9 @@
   --on-dark-accent: #9FD3DD;
   --font-display: 'Sora', system-ui, sans-serif;
   --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-script: 'Damion', 'Brush Script MT', cursive;   /* cursiva de marca, como "Veracruz" del logo */
+  --brand-blue: #257DE2;                                  /* azul del logo */
+  --brand-blue-on-dark: #8CC2FF;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --dur: 0.3s;
 }
@@ -28,7 +31,16 @@ h1, h2, h3 { font-family: var(--font-display); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
+/* Palabra en cursiva de marca dentro de títulos: <span class="script">palabra</span> */
+.script {
+  font-family: var(--font-script); font-weight: 400; font-style: normal;
+  color: var(--brand-blue); font-size: 1.38em; line-height: 0.8;
+  letter-spacing: 0; padding-right: 0.08em; /* evita que se corte el remate final */
+}
+.specialties .script, .dark .script { color: var(--brand-blue-on-dark); }
+
 /* Utilidades */
+.nowrap { white-space: nowrap; }
 .container { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
 .section { padding-block: 88px; }
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 48px; }

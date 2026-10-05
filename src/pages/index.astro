@@ -78,7 +78,7 @@ const icons: Record<string, string> = {
     <div class="container grid-2">
       <div class="stack" data-hero>
         <p class="eyebrow">Clínica dental en Tijuana</p>
-        <h1>La sonrisa que imaginas, con atención dental integral</h1>
+        <h1>La sonrisa que <span class="script">imaginas</span>, con atención dental integral</h1>
         <p class="lead muted">Te ayudamos a resolver tus necesidades dentales, desde tu limpieza y revisión hasta ortodoncia, implantes, All-on-4 y endodoncia. Te valoramos y te explicamos tu plan antes de empezar. Recibimos pacientes de México y Estados Unidos.</p>
         <div class="btn-row">
           <a href={whatsappUrl()} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-hero">
@@ -97,7 +97,7 @@ const icons: Record<string, string> = {
     <div class="container grid-2">
       <div class="stack" data-reveal-group>
         <p class="eyebrow">Odontología general</p>
-        <h2 class="h2">Vuelve a sonreír con confianza</h2>
+        <h2 class="h2">Vuelve a <span class="script">sonreír</span> con confianza</h2>
         <p class="muted">Atendemos tus problemas dentales y la estética de tu boca para que vuelvas a sonreír con confianza y a comer con comodidad. Desde limpiezas y revisiones hasta tratamientos preventivos y restaurativos.</p>
         <a href={whatsappUrl()} class="btn btn-primary cta-start" target="_blank" rel="noopener" data-track="whatsapp-general">Agendar cita</a>
       </div>
@@ -113,7 +113,7 @@ const icons: Record<string, string> = {
     <div class="container">
       <div class="specialties-head" data-reveal-group>
         <p class="eyebrow">Especialidades</p>
-        <h2 class="h2">Tratamientos especializados para cada caso</h2>
+        <h2 class="h2">Tratamientos especializados para <span class="script">cada caso</span></h2>
       </div>
       <div class="spec-grid" data-reveal-group>
         {specialties.map((s) => (
@@ -131,7 +131,7 @@ const icons: Record<string, string> = {
 
   <section class="section">
     <div class="container steps-wrap">
-      <h2 class="h2" data-reveal>Tu primera visita</h2>
+      <h2 class="h2" data-reveal>Tu <span class="script">primera</span> visita</h2>
       <ol class="steps" data-reveal-group>
         <li><span class="step-num">01</span><h3>Agenda tu cita</h3><p class="muted">Escríbenos por WhatsApp o llámanos y elige el horario que te acomode.</p></li>
         <li><span class="step-num">02</span><h3>Valoración</h3><p class="muted">Revisamos tu caso y resolvemos tus dudas.</p></li>
@@ -144,7 +144,7 @@ const icons: Record<string, string> = {
     <div class="container faq-wrap">
       <div class="stack faq-head" data-reveal-group>
         <p class="eyebrow">Preguntas frecuentes</p>
-        <h2 id="faq-title" class="h2">Lo que más nos preguntan</h2>
+        <h2 id="faq-title" class="h2">Lo que más nos <span class="script">preguntan</span></h2>
         <p class="muted">¿Tienes otra duda? Escríbenos por WhatsApp y te respondemos.</p>
       </div>
       <div class="faq-list" data-reveal-group>
@@ -162,7 +162,7 @@ const icons: Record<string, string> = {
     <div id="contacto" class="container grid-2">
       <div class="stack" data-reveal-group>
         <p class="eyebrow">Ubicación y contacto</p>
-        <h2 class="h2">Da el primer paso hacia tu nueva sonrisa</h2>
+        <h2 class="h2">Da el primer paso hacia tu nueva <span class="script">sonrisa</span></h2>
         <ul class="contact-list">
           <li><strong>Dirección:</strong> {fullAddress}</li>
           <li><strong>Teléfono:</strong> <a href={telUrl()}>{b.phone}</a></li>

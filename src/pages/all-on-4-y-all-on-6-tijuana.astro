@@ -80,7 +80,7 @@ const faqs = [
     <div class="container hero-inner">
       <div class="stack" data-hero>
         <nav class="crumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a> <span aria-hidden="true">/</span> <span>{title}</span></nav>
-        <h1>All-on-4 y All-on-6 en {city}</h1>
+        <h1><span class="nowrap">All-on-4</span> y <span class="nowrap">All-on-6</span> en <span class="script">{city}</span></h1>
         <p class="lead muted">Prótesis fija sobre 4 o 6 implantes para quienes han perdido la mayoría o todos sus dientes. Te ayudamos a recuperar la comodidad al comer y la confianza al sonreír, con una valoración y presupuesto antes de empezar.</p>
         <div class="btn-row">
           <a href={whatsappUrl(waMsg)} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-allon-hero">Agendar valoración</a>
@@ -118,7 +118,7 @@ const faqs = [
     <div class="container">
       <div class="stack head" data-reveal-group>
         <p class="eyebrow">Proceso</p>
-        <h2 class="h2">Cómo es el tratamiento, paso a paso</h2>
+        <h2 class="h2">Cómo es el tratamiento, <span class="script">paso a paso</span></h2>
       </div>
       <ol class="timeline" data-reveal-group>
         {steps.map((s, i) => (
@@ -133,7 +133,7 @@ const faqs = [
     <div class="container grid-2 us" data-reveal-group>
       <div class="stack">
         <p class="eyebrow">Turismo médico</p>
-        <h2 class="h2">Si vienes de Estados Unidos</h2>
+        <h2 class="h2">Si vienes de <span class="script">Estados Unidos</span></h2>
       </div>
       <div class="stack">
         <p class="muted">Recibimos con frecuencia pacientes de Estados Unidos. Para aprovechar tu viaje, escríbenos por WhatsApp antes de venir: revisamos tu caso, te pedimos la información que tengas (radiografías, estudios previos) y planeamos las fechas de cada etapa.</p>
@@ -163,7 +163,7 @@ const faqs = [
   <section class="section">
     <div class="container cta-box" data-reveal>
       <div class="stack">
-        <h2 class="h2">Agenda tu valoración para All-on-4 o All-on-6</h2>
+        <h2 class="h2">Agenda tu <span class="script">valoración</span> para All-on-4 o All-on-6</h2>
         <p class="muted">{fullAddress}{hours && ` · ${hours}`}</p>
       </div>
       <a href={whatsappUrl(waMsg)} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-allon-final">Agendar por WhatsApp</a>
