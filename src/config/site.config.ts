@@ -42,7 +42,10 @@ export const SITE = {
   ogImage: '/og-default.png',                // 1200x630
   themeColor: '#1B6F80',
   /** Foto principal del inicio (sesión propia, no stock). Vacío = panel con el logo. */
-  heroImage: '',
+  heroImage: '/fachada-dental-veracruz-tijuana.jpg',
+  /** Versión WebP de heroImage (más ligera); vacío = solo se usa heroImage */
+  heroImageWebp: '/fachada-dental-veracruz-tijuana.webp',
+  heroImageAlt: 'Fachada de Dental Veracruz en Blvd. Cuauhtémoc, Col. Libertad, Tijuana',
 
   // === Negocio médico (para schema Dentist) ===
   business: {
