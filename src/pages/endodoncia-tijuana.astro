@@ -1,0 +1,178 @@
+---
+/**
+ * Página de tratamiento: Endodoncia en Tijuana.
+ * Objetivo SEO: "endodoncia tijuana", "tratamiento de conductos tijuana", "endodoncia precio", "endodoncia duele".
+ * Objetivo GEO: respuesta directa citable, señales de alerta, proceso y FAQs.
+ * ⚕️ YMYL: sin precios, sin promesas de resultados, todo condicionado a valoración.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQSchema from '../components/schema/FAQSchema.astro';
+import BreadcrumbSchema from '../components/schema/BreadcrumbSchema.astro';
+import MedicalProcedureSchema from '../components/schema/MedicalProcedureSchema.astro';
+import { SITE, whatsappUrl, formatHours } from '../config/site.config';
+import '../styles/treatment.css';
+
+const PATH = '/endodoncia-tijuana';
+const b = SITE.business;
+const city = b.address.city;
+const hours = b.openingHours.map(formatHours).join(' · ');
+const fullAddress = `${b.address.street}, ${city}, ${b.address.state} ${b.address.zip}`;
+const waMsg = 'Hola, quiero agendar una valoración para endodoncia.';
+const lastReviewed = '2026-10-07';
+const lastReviewedText = '7 de octubre de 2026';
+
+const title = `Endodoncia en ${city}`;
+const description = `Endodoncia (tratamiento de conductos) en ${city}: buscamos conservar tu diente natural. Valoración y presupuesto antes de empezar. Agenda por WhatsApp.`;
+
+const definition = 'La endodoncia, también conocida como tratamiento de conductos, es un procedimiento en el que se retira la pulpa dental (el tejido interno del diente) cuando está inflamada o infectada; después se limpian, desinfectan y sellan los conductos de la raíz. Su objetivo es conservar el diente natural como alternativa a la extracción.';
+
+const signs = [
+  'Dolor intenso o que regresa, sobre todo al morder o masticar.',
+  'Sensibilidad al frío o al calor que dura varios minutos después del estímulo.',
+  'Inflamación de la encía, un "granito" o absceso cerca del diente.',
+  'Cambio de color del diente (se oscurece).',
+  'Caries profunda, fractura o un golpe fuerte en el diente.',
+];
+
+const steps = [
+  { title: 'Valoración', text: 'Revisamos el diente y tomamos radiografías para confirmar si necesitas endodoncia u otro tratamiento.' },
+  { title: 'Anestesia local', text: 'Se adormece la zona para que el procedimiento sea lo más cómodo posible.' },
+  { title: 'Limpieza de conductos', text: 'Se retira la pulpa afectada y se limpian y desinfectan los conductos de la raíz.' },
+  { title: 'Sellado', text: 'Los conductos se rellenan y sellan para evitar que vuelvan a entrar bacterias.' },
+  { title: 'Restauración', text: 'Se reconstruye el diente con una resina o una corona, según cuánto esté dañado, para protegerlo al masticar.' },
+  { title: 'Seguimiento', text: 'Revisamos que el diente evolucione bien en tus citas de control.' },
+];
+
+const aftercare = [
+  'Es normal sentir algo de sensibilidad o molestia durante algunos días.',
+  'Evita masticar alimentos duros del lado tratado hasta que tengas la restauración definitiva.',
+  'Sigue cepillándote y usando hilo dental con normalidad.',
+  'Escríbenos si la inflamación aumenta, tienes fiebre o el dolor no disminuye.',
+];
+
+const faqs = [
+  { question: '¿Qué es la endodoncia o tratamiento de conductos?', answer: 'Es un tratamiento en el que se retira la pulpa dental inflamada o infectada, se limpian y desinfectan los conductos de la raíz y se sellan. Busca conservar el diente natural en lugar de extraerlo.' },
+  { question: '¿Cómo sé si necesito una endodoncia?', answer: 'Algunas señales son dolor persistente al morder, sensibilidad prolongada al frío o al calor, inflamación de la encía o cambio de color del diente. Sin embargo, solo una valoración con radiografías puede confirmarlo; en algunos casos no hay síntomas.' },
+  { question: '¿La endodoncia duele?', answer: 'Se realiza con anestesia local, por lo que durante el procedimiento se busca que no sientas dolor. Después es normal tener algo de sensibilidad algunos días; te indicamos los cuidados y medicamentos a seguir.' },
+  { question: '¿Cuántas citas se necesitan?', answer: 'Muchas endodoncias se terminan en una o dos citas, pero depende del diente, del número de conductos y de si hay infección. Después suele necesitarse otra cita para la restauración definitiva.' },
+  { question: '¿Cuánto cuesta una endodoncia en Tijuana?', answer: 'El costo depende del diente (anterior, premolar o molar), de su complejidad y de la restauración que necesite después. Te damos un presupuesto después de la valoración y antes de empezar.' },
+  { question: '¿Necesito una corona después de la endodoncia?', answer: 'Depende de cuánto tejido sano conserve el diente. En muelas y dientes muy dañados suele recomendarse una corona para protegerlos; en otros casos basta una resina. Lo definimos en tu plan de tratamiento.' },
+  { question: '¿Qué pasa si no me hago la endodoncia?', answer: 'Si la pulpa está infectada, la infección puede avanzar, causar dolor o abscesos y, con el tiempo, el diente puede tener que extraerse. Por eso conviene valorarlo pronto.' },
+  { question: '¿No es mejor sacar el diente?', answer: 'Cuando es posible, conservar el diente natural suele ser preferible porque mantiene tu mordida y evita que los dientes vecinos se muevan. Si el diente no puede conservarse, te explicamos las alternativas, como un implante.' },
+  { question: '¿Atienden a pacientes que vienen de Estados Unidos?', answer: 'Sí, recibimos con frecuencia pacientes de Estados Unidos. Escríbenos por WhatsApp antes de tu viaje para coordinar la valoración y el número de citas.' },
+  { question: '¿Dónde hacen endodoncia en Tijuana?', answer: `En ${SITE.name}, en ${fullAddress}. Agenda tu valoración por WhatsApp al ${b.phone}.` },
+];
+---
+<BaseLayout title={title} description={description} fullWidth>
+  <MedicalProcedureSchema
+    name="Endodoncia"
+    alternateName={['Tratamiento de conductos', 'Tratamiento de conducto radicular', 'Root canal']}
+    description={definition}
+    url={PATH}
+    bodyLocation="Pulpa dental y conductos radiculares"
+    preparation="Valoración clínica y radiografías del diente afectado."
+    howPerformed="Con anestesia local se retira la pulpa afectada, se limpian y desinfectan los conductos y se sellan; después se restaura el diente con resina o corona."
+    followup="Restauración definitiva del diente y revisiones de control."
+    lastReviewed={lastReviewed}
+  />
+  <BreadcrumbSchema items={[{ name: title, url: PATH }]} />
+  <FAQSchema faqs={faqs} />
+
+  <div class="tx">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="stack" data-hero>
+        <nav class="crumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a> <span aria-hidden="true">/</span> <span>{title}</span></nav>
+        <h1>Endodoncia en <span class="script">{city}</span></h1>
+        <p class="lead muted">Tratamiento de conductos para dientes dañados o infectados. Te ayudamos a conservar tu diente natural siempre que sea posible, con una valoración y presupuesto antes de empezar.</p>
+        <div class="btn-row">
+          <a href={whatsappUrl(waMsg)} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-endo-hero">Agendar valoración</a>
+        </div>
+        <p class="hero-note">Recibimos pacientes de México y Estados Unidos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow" data-reveal-group>
+      <p class="eyebrow">Respuesta rápida</p>
+      <h2 class="h2">¿Qué es la endodoncia?</h2>
+      <p class="answer">{definition}</p>
+      <p class="muted">Se le conoce como "matar el nervio", pero en realidad lo que se trata es el tejido interno del diente; el diente se queda en su lugar y sigue funcionando.</p>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container grid-2">
+      <div class="stack" data-reveal-group>
+        <p class="eyebrow">Señales de alerta</p>
+        <h2 class="h2">¿Cuándo puedes necesitarla?</h2>
+        <p class="muted">Estas señales no siempre significan endodoncia, y en algunos casos no hay síntomas. Solo una valoración con radiografías lo confirma.</p>
+      </div>
+      <div class="stack" data-reveal-group>
+        <ul class="dots">{signs.map((s) => <li>{s}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container">
+      <div class="stack head" data-reveal-group>
+        <p class="eyebrow">Proceso</p>
+        <h2 class="h2">Cómo es el tratamiento, <span class="script">paso a paso</span></h2>
+      </div>
+      <ol class="timeline" data-reveal-group>
+        {steps.map((s, i) => (
+          <li><span class="num">{String(i + 1).padStart(2, '0')}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
+        ))}
+      </ol>
+      <p class="note" data-reveal>El número de citas depende de cada diente; te damos un estimado en tu plan de tratamiento.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2 us">
+      <div class="stack" data-reveal-group>
+        <p class="eyebrow">Después del tratamiento</p>
+        <h2 class="h2">Cuidados en <span class="script">casa</span></h2>
+      </div>
+      <div class="stack" data-reveal-group>
+        <ul class="checks">{aftercare.map((a) => <li>{a}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft faq">
+    <div class="container faq-wrap">
+      <div class="stack faq-head" data-reveal-group>
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 class="h2">Endodoncia: dudas comunes</h2>
+      </div>
+      <div class="faq-list" data-reveal-group>
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.question}</summary>
+            <p>{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cta-box" data-reveal>
+      <div class="stack">
+        <h2 class="h2">Agenda tu <span class="script">valoración</span> de endodoncia</h2>
+        <p class="muted">{fullAddress}{hours && ` · ${hours}`}</p>
+      </div>
+      <a href={whatsappUrl(waMsg)} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-endo-final">Agendar por WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="section disclaimer-sec">
+    <div class="container narrow">
+      <p class="disclaimer">Última actualización: <time datetime={lastReviewed}>{lastReviewedText}</time>. {SITE.blog.disclaimer}</p>
+    </div>
+  </section>
+  </div>
+</BaseLayout>
