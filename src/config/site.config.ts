@@ -44,7 +44,7 @@ export const SITE = {
   heroImage: '/fachada-dental-veracruz-tijuana.jpg',
   /** Versión WebP de heroImage (más ligera); vacío = solo se usa heroImage */
   heroImageWebp: '/fachada-dental-veracruz-tijuana.webp',
-  heroImageAlt: 'Fachada de Dental Veracruz en Blvd. Cuauhtémoc, Col. Libertad, Tijuana',
+  heroImageAlt: 'Fachada de Dental Veracruz en Col. Libertad, Tijuana, esquina con Blvd. Cuauhtémoc',
 
   // === Negocio médico (para schema Dentist) ===
   business: {
@@ -65,12 +65,17 @@ export const SITE = {
     /** Especialidades médicas (schema medicalSpecialty). */
     specialties: ['Dentistry'] as string[],
     address: {
-      street: 'Blvd. Cuauhtémoc 11004, Col. Libertad',
+      /** Dirección PÚBLICA (igual a Google Business): acceso y estacionamiento por Aquiles Serdán */
+      street: 'Av. Aquiles Serdán 11004-8, Col. Libertad',
       city: 'Tijuana',
       state: 'B.C.',
       zip: '22400',                          // TODO: confirmar CP con Google Business
       country: 'MX',
     },
+    /** Referencia de acceso que se muestra junto a la dirección (ubicación, FAQ, llms.txt) */
+    addressNote: 'Planta baja, esquina con Blvd. Cuauhtémoc Norte. Estacionamiento gratuito y acceso por Av. Aquiles Serdán; si vienes en Uber o taxi, pide que te dejen en Aquiles Serdán.',
+    /** Domicilio LEGAL (COEPRIS, facturación, aviso de privacidad). No se usa como dirección pública. */
+    legalAddress: 'Blvd. Cuauhtémoc 11004, Col. Libertad, C.P. 22400, Tijuana, B.C., México',
     /** Tomadas del embed de Google Maps (centro del mapa). Verificar con el pin exacto. */
     geo: { lat: 32.53359097365693, lng: -117.01171038775088 },
     /** Formato schema.org (igual que Google Business). */

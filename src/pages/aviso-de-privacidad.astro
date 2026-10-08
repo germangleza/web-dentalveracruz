@@ -8,7 +8,7 @@ import { SITE, whatsappUrl, telUrl } from '../config/site.config';
 
 const b = SITE.business;
 const responsable = b.legalName || SITE.name;
-const domicilio = `${b.address.street}, C.P. ${b.address.zip}, ${b.address.city}, ${b.address.state}, México`;
+const domicilio = b.legalAddress;
 const updated = '2 de octubre de 2026';
 ---
 <BaseLayout title="Aviso de privacidad" description={`Aviso de privacidad integral de ${SITE.name}: qué datos personales recabamos, para qué los usamos y cómo ejercer tus derechos ARCO.`}>

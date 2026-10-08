@@ -59,7 +59,11 @@ const faqs = [
   },
   {
     question: '¿Dónde están ubicados?',
-    answer: `Estamos en ${fullAddress}.`,
+    answer: `Estamos en ${fullAddress}, esquina con Blvd. Cuauhtémoc Norte.`,
+  },
+  {
+    question: '¿Tienen estacionamiento?',
+    answer: 'Sí, contamos con estacionamiento gratuito con acceso por Av. Aquiles Serdán. Si vienes en Uber o taxi, pide que te dejen en Aquiles Serdán, ya que sobre Blvd. Cuauhtémoc no se pueden detener.',
   },
   ...(hours ? [{ question: '¿Cuál es su horario?', answer: `${hours}.` }] : []),
 ];
@@ -168,6 +172,7 @@ const icons: Record<string, string> = {
         <h2 class="h2">Da el primer paso hacia tu nueva <span class="script">sonrisa</span></h2>
         <ul class="contact-list">
           <li><strong>Dirección:</strong> {fullAddress}</li>
+          <li><strong>Cómo llegar:</strong> {b.addressNote}</li>
           <li><strong>Teléfono:</strong> <a href={telUrl()}>{b.phone}</a></li>
           <li><strong>WhatsApp:</strong> <a href={whatsappUrl()} target="_blank" rel="noopener">{b.phone}</a></li>
           {hours && <li><strong>Horario:</strong> {hours}</li>}

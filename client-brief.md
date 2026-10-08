@@ -6,7 +6,7 @@
 
 - **Nombre comercial:** Dental Veracruz
 - **Qué hace / servicios principales:** Odontología general (limpieza, revisión y diagnóstico, preventivos, restaurativos) y especialidades: ortodoncia, implantes dentales, All-on-4 / All-on-6 y endodoncia. Turismo médico: muchos pacientes de EE. UU.
-- **Ubicación (ciudad, zona de cobertura):** Blvd. Cuauhtémoc 11004, Col. Libertad, Tijuana, B.C. (CP 22400 por confirmar; coordenadas tomadas del embed de Maps)
+- **Ubicación (ciudad, zona de cobertura):** Dirección pública (Google + sitio): Av. Aquiles Serdán 11004-8, Col. Libertad, 22400 Tijuana, B.C. — planta baja, esquina con Blvd. Cuauhtémoc Norte; estacionamiento y acceso por Aquiles (sobre Cuauhtémoc no se pueden detener autos ni Uber). Domicilio legal (COEPRIS, facturas, aviso de privacidad): Blvd. Cuauhtémoc 11004.
 - **Diferenciadores (por qué elegirlos a ellos):**
 - **Teléfono / WhatsApp / contacto principal:** WhatsApp +52 664 780 8302
 - **Razón social:** JERGARALVER
