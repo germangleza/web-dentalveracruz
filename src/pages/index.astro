@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     question: '¿Cómo agendo una cita?',
-    answer: `Escríbenos por WhatsApp o llámanos al ${b.phone} y elige el horario que te acomode.`,
+    answer: `Escríbenos por WhatsApp al ${b.whatsappDisplay} o llámanos al ${b.phone} y elige el horario que te acomode.`,
   },
   {
     question: '¿Qué pasa en la primera visita?',
@@ -174,7 +174,7 @@ const icons: Record<string, string> = {
           <li><strong>Dirección:</strong> {fullAddress}</li>
           <li><strong>Cómo llegar:</strong> {b.addressNote}</li>
           <li><strong>Teléfono:</strong> <a href={telUrl()}>{b.phone}</a></li>
-          <li><strong>WhatsApp:</strong> <a href={whatsappUrl()} target="_blank" rel="noopener">{b.phone}</a></li>
+          <li><strong>WhatsApp:</strong> <a href={whatsappUrl()} target="_blank" rel="noopener">{b.whatsappDisplay}</a></li>
           {hours && <li><strong>Horario:</strong> {hours}</li>}
           {b.email && <li><strong>Correo:</strong> <a href={`mailto:${b.email}`}>{b.email}</a></li>}
         </ul>

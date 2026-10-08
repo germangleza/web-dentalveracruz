@@ -58,7 +58,10 @@ export const SITE = {
     type: 'Dentist' as 'MedicalClinic' | 'Physician' | 'Dentist' | 'MedicalOrganization',
     legalName: 'JERGARALVER',                // Razón social (TODO: confirmar régimen, p. ej. S.A. de C.V.)
     email: '',                               // TODO: correo de contacto
-    phone: '+52 664 780 8302',
+    /** Teléfono fijo (principal, igual a Google Business). Llamadas y schema. */
+    phone: '+52 664 686 0136',
+    /** WhatsApp para mostrar en texto (citas y mensajes) */
+    whatsappDisplay: '+52 664 780 8302',
     /** WhatsApp en formato internacional sin "+" ni espacios (para wa.me) */
     whatsapp: '526647808302',
     whatsappMessage: 'Hola, me gustaría agendar una cita en Dental Veracruz.',

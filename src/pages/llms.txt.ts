@@ -21,7 +21,8 @@ export const GET: APIRoute = async () => {
 - Cómo llegar: ${SITE.business.addressNote}
 - Horario: ${SITE.business.openingHours.map(formatHours).join(' · ')}${SITE.business.openingHours.some((h) => h.includes('Su')) ? '' : ' (domingo cerrado)'}
 - Pacientes: México y Estados Unidos (turismo médico)
-- Teléfono / WhatsApp: ${SITE.business.phone}${SITE.business.email ? `\n- Correo: ${SITE.business.email}` : ''}
+- Teléfono: ${SITE.business.phone}
+- WhatsApp (citas): ${SITE.business.whatsappDisplay}${SITE.business.email ? `\n- Correo: ${SITE.business.email}` : ''}
 
 ## Tratamientos
 ${SITE.services.specialties.map((s) => `- ${'url' in s ? `[${s.name}](${SITE.url}${s.url})` : s.name}: ${s.description}`).join('\n')}

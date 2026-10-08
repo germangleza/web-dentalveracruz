@@ -8,7 +8,7 @@
 - **Qué hace / servicios principales:** Odontología general (limpieza, revisión y diagnóstico, preventivos, restaurativos) y especialidades: ortodoncia, implantes dentales, All-on-4 / All-on-6 y endodoncia. Turismo médico: muchos pacientes de EE. UU.
 - **Ubicación (ciudad, zona de cobertura):** Dirección pública (Google + sitio): Av. Aquiles Serdán 11004-8, Col. Libertad, 22400 Tijuana, B.C. — planta baja, esquina con Blvd. Cuauhtémoc Norte; estacionamiento y acceso por Aquiles (sobre Cuauhtémoc no se pueden detener autos ni Uber). Domicilio legal (COEPRIS, facturas, aviso de privacidad): Blvd. Cuauhtémoc 11004.
 - **Diferenciadores (por qué elegirlos a ellos):**
-- **Teléfono / WhatsApp / contacto principal:** WhatsApp +52 664 780 8302
+- **Teléfono / WhatsApp / contacto principal:** Teléfono fijo +52 664 686 0136 (principal, igual a Google Business) · WhatsApp +52 664 780 8302 (citas)
 - **Razón social:** JERGARALVER
 - **Dominio:** www.dentalveracruz.com (registrado en Wix; el correo empresarial también está en Wix — no cambiar nameservers ni registros MX)
 - **Horario:** Lun a Vie 9:00–17:00 · Sáb 8:00–16:00 (domingo cerrado)

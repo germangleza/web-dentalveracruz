@@ -81,7 +81,7 @@ const socials = [
           <img class="footer-logo" src={SITE.logoWhite} alt={SITE.name} width="137" height="56" loading="lazy" />
           <address>
             {b.address.street}, {b.address.city}, {b.address.state} {b.address.zip}<br />
-            <a href={telUrl()}>{b.phone}</a>
+            Tel. <a href={telUrl()}>{b.phone}</a> · WhatsApp <a href={whatsappUrl()} target="_blank" rel="noopener">{b.whatsappDisplay}</a>
           </address>
           {reg.sanitaryResponsible && <span>Responsable sanitario: {reg.sanitaryResponsible}</span>}
           {reg.advertisingPermit && <span>Aviso de publicidad COFEPRIS: {reg.advertisingPermit}</span>}
