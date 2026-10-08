@@ -122,7 +122,7 @@ export const SITE = {
         id: 'endodoncia',
         name: 'Endodoncia',
         url: '/endodoncia-tijuana',
-        description: 'Busca conservar dientes dañados o infectados: se retira la pulpa afectada y se sella el conducto, como alternativa a la extracción.',
+        description: '¿Dolor o infección en un diente? Te ayudamos a conservarlo con un tratamiento de conductos, para evitar la extracción siempre que sea posible.',
       },
     ],
   },
