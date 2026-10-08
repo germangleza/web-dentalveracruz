@@ -10,6 +10,7 @@
 - **Diferenciadores (por qué elegirlos a ellos):**
 - **Teléfono / WhatsApp / contacto principal:** WhatsApp +52 664 780 8302
 - **Razón social:** JERGARALVER
+- **Dominio:** www.dentalveracruz.com (registrado en Wix; el correo empresarial también está en Wix — no cambiar nameservers ni registros MX)
 - **Horario:** Lun a Vie 9:00–17:00 · Sáb 8:00–16:00 (domingo cerrado)
 - **Redes:** instagram.com/dental.veracruz.en.tijuana · facebook.com/DentalVeracruzTijuana
 - **Google Business Profile (URL):** https://maps.google.com/?cid=12775939453074444997 — ficha "Dental Veracruz en Tijuana"; NAP del sitio debe coincidir exactamente

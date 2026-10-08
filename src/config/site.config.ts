@@ -22,8 +22,7 @@ export interface TeamMemberInput {
 export const SITE = {
   // === Básicos ===
   name: 'Dental Veracruz',
-  // TODO: dominio final pendiente (SIN slash al final)
-  url: 'https://ejemplo.com',
+  url: 'https://www.dentalveracruz.com',     // Dominio final SIN slash al final (www = principal)
   title: 'Dental Veracruz | Clínica dental en Tijuana',
   description: 'Clínica dental en Tijuana: odontología general, ortodoncia, implantes, All-on-4 y endodoncia. Pacientes de México y EE. UU. Agenda por WhatsApp.',
   locale: 'es_MX',
