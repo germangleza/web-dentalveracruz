@@ -76,8 +76,8 @@ export const SITE = {
     addressNote: 'Planta baja, esquina con Blvd. Cuauhtémoc Norte. Estacionamiento gratuito y acceso por Av. Aquiles Serdán; si vienes en Uber o taxi, pide que te dejen en Aquiles Serdán.',
     /** Domicilio LEGAL (COEPRIS, facturación, aviso de privacidad). No se usa como dirección pública. */
     legalAddress: 'Blvd. Cuauhtémoc 11004, Col. Libertad, C.P. 22400, Tijuana, B.C., México',
-    /** Tomadas del embed de Google Maps (centro del mapa). Verificar con el pin exacto. */
-    geo: { lat: 32.53359097365693, lng: -117.01171038775088 },
+    /** Pin de Google Business: entrada/estacionamiento por Av. Aquiles Serdán */
+    geo: { lat: 32.53381394877119, lng: -117.00942726503483 },
     /** Formato schema.org (igual que Google Business). */
     openingHours: ['Mo-Fr 09:00-17:00', 'Sa 08:00-16:00'] as string[],
     /** ¿Acepta pacientes nuevos? (aparece en resultados de Google) */
