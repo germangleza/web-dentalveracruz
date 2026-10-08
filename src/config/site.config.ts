@@ -33,7 +33,7 @@ export const SITE = {
    * robots.txt bloquea el rastreo. Cambiar a false solo cuando ya exista el
    * permiso de publicidad COFEPRIS/COEPRIS y el contenido final esté aprobado.
    */
-  prelaunch: true,
+  prelaunch: false,
 
   // === Marca ===
   logo: '/logo.png',                         // Logo a color (fondo transparente)

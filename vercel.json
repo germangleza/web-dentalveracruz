@@ -1,5 +1,20 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/endodoncia", "destination": "/endodoncia-tijuana", "permanent": true },
+    { "source": "/all-on-4", "destination": "/all-on-4-y-all-on-6-tijuana", "permanent": true },
+    { "source": "/all-on-6", "destination": "/all-on-4-y-all-on-6-tijuana", "permanent": true },
+    { "source": "/implantes-dentales", "destination": "/#especialidades", "permanent": true },
+    { "source": "/implantes", "destination": "/#especialidades", "permanent": true },
+    { "source": "/ortodoncia", "destination": "/#especialidades", "permanent": true },
+    { "source": "/servicios", "destination": "/#especialidades", "permanent": true },
+    { "source": "/services", "destination": "/#especialidades", "permanent": true },
+    { "source": "/contacto", "destination": "/#contacto", "permanent": true },
+    { "source": "/contact", "destination": "/#contacto", "permanent": true },
+    { "source": "/about", "destination": "/", "permanent": true },
+    { "source": "/nosotros", "destination": "/", "permanent": true },
+    { "source": "/blank", "destination": "/", "permanent": true }
+  ]
 }
