@@ -17,7 +17,8 @@ export default defineConfig({
       // /equipo solo existe si hay médicos publicados en medicalTeam
       filter: (page) =>
         (SITE.medicalTeam.length > 0 || !page.endsWith('/equipo')) &&
-        (hasPosts || !page.endsWith('/blog')),
+        (hasPosts || !page.endsWith('/blog')) &&
+        !page.endsWith('/opcion-b'), // variante en evaluación: fuera del sitemap (y con noindex)
     }),
     mdx(),
   ],

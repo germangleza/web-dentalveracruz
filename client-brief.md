@@ -9,7 +9,7 @@
 - **Ubicación (ciudad, zona de cobertura):** Dirección pública (Google + sitio): Av. Aquiles Serdán 11004-8, Col. Libertad, 22400 Tijuana, B.C. — planta baja, esquina con Blvd. Cuauhtémoc Norte; estacionamiento y acceso por Aquiles (sobre Cuauhtémoc no se pueden detener autos ni Uber). Domicilio legal (COEPRIS, facturas, aviso de privacidad): Blvd. Cuauhtémoc 11004.
 - **Diferenciadores (por qué elegirlos a ellos):**
 - **Teléfono / WhatsApp / contacto principal:** Teléfono fijo +52 664 686 0136 (principal, igual a Google Business) · WhatsApp +52 664 780 8302 (citas)
-- **Razón social:** JERGARALVER
+- **Razón social:** JORGARALVER, S.C. (RFC JOR0710264R1, según constancia de situación fiscal)
 - **Dominio:** www.dentalveracruz.com (registrado en Wix; el correo empresarial también está en Wix — no cambiar nameservers ni registros MX)
 - **Horario:** Lun a Vie 9:00–17:00 · Sáb 8:00–16:00 (domingo cerrado)
 - **Redes:** instagram.com/dental.veracruz.en.tijuana · facebook.com/DentalVeracruzTijuana
@@ -58,6 +58,14 @@
 - **Permiso de publicidad COFEPRIS:** en trámite (lo gestiona Germán). Mientras no exista, el sitio queda en `prelaunch: true` (noindex + robots Disallow).
 - **Documento sanitario recibido:** Resolución definitiva COEPRIS BC, expediente `21-SS-E-02-TJ-105-C-V`, Tijuana, 20 de agosto de 2024. Resuelve (archivo) el procedimiento de verificación sanitaria practicado el 19 de mayo de 2021 al establecimiento "Dental Veracruz", Blvd. Cuauhtémoc 11004, Col. Libertad.
 - **Pendiente confirmar:** aviso de funcionamiento y responsable sanitario (nombre + cédula), normalmente requeridos en la publicidad de servicios de salud.
+
+## Opción B (en evaluación) — solo "clínica dental"
+
+- Publicada en `/opcion-b` (noindex, fuera del sitemap) para compararla con el sitio actual (opción A, en `/`).
+- Motivo: el permiso de publicidad se tramita como persona moral (JORGARALVER, S.C.) con alcance **solo de odontología general**; las especialidades las hacen especialistas externos.
+- Qué NO comunica la opción B: especialidades (ortodoncia, implantes, All-on-4/6, endodoncia), superlativos, promesas de resultado, la palabra "estética".
+- Leyenda del art. 19 del Reglamento en Materia de Publicidad: sale de `regulatory.sanitaryResponsible` en `src/config/opcion-b.ts` (pendiente: nombre, escuela y cédula de la responsable sanitaria; mientras tenga [CORCHETES] no se muestra).
+- Si se elige B: aplicar el resto de CAMBIOS-clinica-general.md en la principal (reemplazar index, borrar páginas de especialidades + redirects a `/`, llms.txt, description, quitar la foto con letreros).
 
 ## Médicos revisores (vertical salud)
 

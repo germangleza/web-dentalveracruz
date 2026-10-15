@@ -5,6 +5,7 @@ import OrganizationSchema from '../components/schema/OrganizationSchema.astro';
 import WebSiteSchema from '../components/schema/WebSiteSchema.astro';
 import { getCollection } from 'astro:content';
 import { SITE, whatsappUrl, telUrl } from '../config/site.config';
+import { OPCION_B, isPlaceholder } from '../config/opcion-b';
 import '@fontsource/yellowtail/latin-400.css'; // Cursiva de marca (similar a "Veracruz" del logo)
 import '../styles/global.css';
 
@@ -19,13 +20,19 @@ interface Props {
   author?: string;
   /** true = la página maneja su propio ancho (secciones a todo lo ancho, p. ej. el inicio) */
   fullWidth?: boolean;
+  /** 'b' = variante "solo clínica dental" (/opcion-b): menú, footer y leyendas propias */
+  variant?: 'a' | 'b';
 }
-const { fullWidth = false, ...seoProps } = Astro.props;
+const { fullWidth = false, variant = 'a', ...seoProps } = Astro.props;
+const isB = variant === 'b';
+const home = isB ? OPCION_B.path : '/';
 const props = { ...seoProps, noindex: SITE.prelaunch || seoProps.noindex };
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const b = SITE.business;
-const reg = SITE.regulatory;
-const treatmentPages = SITE.services.specialties.flatMap((s) => ('url' in s ? [{ name: s.name, url: s.url }] : []));
+const reg = isB ? OPCION_B.regulatory : SITE.regulatory;
+const showResponsible = reg.sanitaryResponsible && !isPlaceholder(reg.sanitaryResponsible);
+const permitLabel = isB ? 'Permiso de publicidad:' : 'Aviso de publicidad COFEPRIS:';
+const treatmentPages = isB ? [] : SITE.services.specialties.flatMap((s) => ('url' in s ? [{ name: s.name, url: s.url }] : []));
 const socials = [
   SITE.socials.facebook && { name: 'Facebook', url: `https://facebook.com/${SITE.socials.facebook}` },
   SITE.socials.instagram && { name: 'Instagram', url: `https://instagram.com/${SITE.socials.instagram}` },
@@ -56,16 +63,16 @@ const socials = [
   <body>
     <header class="site-header">
       <div class="container">
-        <a href="/" class="logo">
+        <a href={home} class="logo">
           <img src={SITE.logo} alt={SITE.name} width="128" height="52" />
         </a>
         <nav class="nav" aria-label="Principal">
-          <a href="/#general">Odontología general</a>
-          <a href="/#especialidades">Especialidades</a>
-          <a href="/#preguntas">Preguntas frecuentes</a>
+          <a href={`${home}#general`}>Odontología general</a>
+          {isB ? <a href={`${home}#la-clinica`}>La clínica</a> : <a href="/#especialidades">Especialidades</a>}
+          <a href={`${home}#preguntas`}>Preguntas frecuentes</a>
           {SITE.medicalTeam.length > 0 && <a href="/equipo">Equipo</a>}
           {hasPosts && <a href="/blog">Blog</a>}
-          <a href="/#ubicacion">Ubicación</a>
+          <a href={`${home}#ubicacion`}>Ubicación</a>
           <a href={whatsappUrl()} class="btn btn-primary" target="_blank" rel="noopener" data-track="whatsapp-header">Agendar cita</a>
         </nav>
       </div>
@@ -83,8 +90,8 @@ const socials = [
             {b.address.street}, {b.address.city}, {b.address.state} {b.address.zip}<br />
             Tel. <a href={telUrl()}>{b.phone}</a> · WhatsApp <a href={whatsappUrl()} target="_blank" rel="noopener">{b.whatsappDisplay}</a>
           </address>
-          {reg.sanitaryResponsible && <span>Responsable sanitario: {reg.sanitaryResponsible}</span>}
-          {reg.advertisingPermit && <span>Aviso de publicidad COFEPRIS: {reg.advertisingPermit}</span>}
+          {showResponsible && <span>Responsable sanitario: {reg.sanitaryResponsible}</span>}
+          {reg.advertisingPermit && <span>{permitLabel} {reg.advertisingPermit}</span>}
           <span>© {new Date().getFullYear()} {SITE.name}{b.legalName && ` · ${b.legalName}`}</span>
         </div>
         <div class="footer-links">

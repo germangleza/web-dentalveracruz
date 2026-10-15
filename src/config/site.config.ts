@@ -56,7 +56,7 @@ export const SITE = {
      * 'MedicalOrganization'→ hospitales, laboratorios, organizaciones grandes
      */
     type: 'Dentist' as 'MedicalClinic' | 'Physician' | 'Dentist' | 'MedicalOrganization',
-    legalName: 'JERGARALVER',                // Razón social (TODO: confirmar régimen, p. ej. S.A. de C.V.)
+    legalName: 'JORGARALVER, S.C.',          // Razón social según constancia de situación fiscal (RFC JOR0710264R1)
     email: '',                               // TODO: correo de contacto
     /** Teléfono fijo (principal, igual a Google Business). Llamadas y schema. */
     phone: '+52 664 686 0136',
